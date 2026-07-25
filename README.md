@@ -14,7 +14,7 @@ Página web estática (HTML + CSS, fuentes Inter e IBM Plex Mono vía Google Fon
 
 Publicado con **GitHub Pages** desde la rama `gh-pages`.
 
-Sitio en vivo: <https://carvaldiegosanl-hue.github.io/tecyes/>
+Sitio en vivo: <https://carvaldiegosanl-hue.github.io/TecOper/>
 
 > Nota: `index.html` incluye una etiqueta `<link rel="canonical">` y metadatos Open Graph que apuntan a la URL de GitHub Pages. Cuando tengas un dominio propio (por ejemplo `tecoper.com.co`), actualiza esas URLs.
 
