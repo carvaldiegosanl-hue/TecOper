@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>TecOper — Tecnología inteligente para ti y tu empresa</title>
-<meta name="description" content="Tecnología inteligente para ti y tu empresa: automatización con inteligencia artificial y cargadores para vehículos eléctricos en Colombia. Cotización formal en menos de 24 horas.">
+<meta name="description" content="TecOper usa IA predictiva para anticipar fallas antes de que ocurran: ingeniería y automatización, seguridad electrónica y consultoría en transformación digital en Colombia. Diagnóstico gratis, cotización en 24 horas.">
 <link rel="icon" type="image/png" href="logo.png">
 
 <!-- ====== URLs apuntan al sitio en vivo (GitHub Pages). Cuando tengas dominio propio, reemplaza "https://carvaldiegosanl-hue.github.io/TecOper" por "https://www.tudominio.com" ====== -->
@@ -62,12 +62,12 @@
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    { "@type": "Question", "name": "¿La cotización tiene algún costo?", "acceptedAnswer": { "@type": "Answer", "text": "No. Evaluamos tu necesidad y te enviamos una cotización formal con alcance y condiciones en menos de 24 horas, sin costo y sin compromiso." } },
-    { "@type": "Question", "name": "¿Atienden solo empresas o también personas naturales?", "acceptedAnswer": { "@type": "Answer", "text": "Atendemos empresas, conjuntos residenciales y personas naturales. El proceso es el mismo: cotización formal, orden de servicio y entrega documentada." } },
-    { "@type": "Question", "name": "¿En qué zonas prestan sus servicios?", "acceptedAnswer": { "@type": "Answer", "text": "Prestamos servicios en Colombia: conjuntos residenciales, parqueaderos, bodegas, plantas industriales, puertos y más. Escríbenos con tu ubicación y te confirmamos la disponibilidad para tu zona." } },
-    { "@type": "Question", "name": "¿Emiten factura?", "acceptedAnswer": { "@type": "Answer", "text": "Sí. Todo servicio termina con entrega firmada, evidencia fotográfica y factura. La trazabilidad de tu servicio queda documentada de principio a fin." } },
-    { "@type": "Question", "name": "¿Cómo queda documentado el servicio?", "acceptedAnswer": { "@type": "Answer", "text": "Cada trabajo se ejecuta con una orden de servicio que registra el técnico asignado, la fecha y la dirección. Al finalizar recibes la entrega con firma y evidencia fotográfica." } },
-    { "@type": "Question", "name": "¿Ofrecen mantenimiento recurrente?", "acceptedAnswer": { "@type": "Answer", "text": "Sí. Dentro de nuestros servicios de tecnología ofrecemos mantenimiento programado, visitas preventivas periódicas y soporte prioritario según lo que necesites." } }
+    { "@type": "Question", "name": "¿Qué significa \"IA predictiva\" en la práctica?", "acceptedAnswer": { "@type": "Answer", "text": "Que en vez de esperar a que algo se dañe, monitoreamos tu operación y te avisamos cuando aparecen las primeras señales de falla. Actúas a tiempo, cuando arreglarlo todavía es barato." } },
+    { "@type": "Question", "name": "¿Esto solo sirve para empresas grandes?", "acceptedAnswer": { "@type": "Answer", "text": "No. Trabajamos con pymes, conjuntos residenciales y plantas industriales. La tecnología se ajusta a tu tamaño y a tu presupuesto: empiezas por donde más te duele." } },
+    { "@type": "Question", "name": "¿Cuánto cuesta el diagnóstico?", "acceptedAnswer": { "@type": "Answer", "text": "Cero. Evaluamos tu necesidad y te enviamos la cotización sin costo y sin compromiso. Solo pagas si decides avanzar." } },
+    { "@type": "Question", "name": "¿En cuánto tiempo me responden?", "acceptedAnswer": { "@type": "Answer", "text": "Te enviamos una cotización formal en menos de 24 horas desde que nos contactas." } },
+    { "@type": "Question", "name": "¿Atienden fuera de mi ciudad?", "acceptedAnswer": { "@type": "Answer", "text": "Sí. Prestamos servicio en toda Colombia. Escríbenos tu ubicación y te confirmamos la disponibilidad para tu zona." } },
+    { "@type": "Question", "name": "¿Todo queda documentado?", "acceptedAnswer": { "@type": "Answer", "text": "Sí. Cada servicio tiene orden con técnico, fecha y evidencia, y terminamos con entrega firmada y factura. 100% trazabilidad digital, de principio a fin." } }
   ]
 }
 </script>
@@ -172,7 +172,30 @@ section{padding:80px 24px;}
 .step{position:relative;z-index:1;text-align:center;padding:30px 20px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);transition:background .2s,transform .2s;}
 .step:hover{background:rgba(255,255,255,.08);transform:translateY(-3px);}
 .step-num{width:52px;height:52px;border-radius:50%;background:var(--accent);color:#fff;font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:16px;font-weight:600;letter-spacing:.02em;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
-.step h3{font-size:16px;font-weight:700;letter-spacing:-.2px;margin:0;}
+.step h3{font-size:16px;font-weight:700;letter-spacing:-.2px;margin:0 0 8px;}
+.step p{font-size:13px;color:rgba(255,255,255,.5);line-height:1.6;margin:0;}
+
+/* HERO BADGES / TRUST PILLS */
+.trust-badges{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:30px;}
+.trust-badges span{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;color:rgba(255,255,255,.82);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);padding:8px 15px;border-radius:99px;}
+.trust-badges span b{color:var(--accent-light);font-weight:700;}
+.cta-section .trust-badges{margin-top:34px;}
+
+/* DIFERENCIA */
+.difference{background:var(--primary);color:#fff;position:relative;overflow:hidden;}
+.difference::before{content:'';position:absolute;top:-30%;right:-10%;width:520px;height:520px;background:radial-gradient(circle,rgba(226,35,26,.14) 0%,transparent 70%);border-radius:50%;}
+.difference .section-inner{position:relative;z-index:1;}
+.difference .section-tag{background:rgba(255,82,82,.15);color:var(--accent-light);}
+.difference .section-title{color:#fff;}
+.difference .section-sub{color:rgba(255,255,255,.55);}
+.diff-body{max-width:720px;font-size:16px;color:rgba(255,255,255,.72);line-height:1.75;margin-bottom:30px;}
+.diff-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-bottom:38px;}
+.diff-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:var(--radius);padding:24px;}
+.diff-item h4{font-size:16px;font-weight:700;margin-bottom:7px;color:#fff;}
+.diff-item h4 span{color:var(--accent-light);}
+.diff-item p{font-size:14px;color:rgba(255,255,255,.6);line-height:1.6;}
+.diff-quote{font-size:clamp(19px,2.6vw,26px);font-weight:700;line-height:1.4;color:#fff;border-left:3px solid var(--accent);padding-left:22px;max-width:760px;text-wrap:balance;}
+.diff-quote span{color:var(--accent-light);}
 
 /* FAQ */
 .faq-list{max-width:760px;display:flex;flex-direction:column;gap:12px;}
@@ -273,6 +296,7 @@ footer p{font-size:13px;color:rgba(255,255,255,.3);}
       <span></span><span></span><span></span>
     </button>
     <div class="nav-links" id="navLinks">
+      <a href="#diferencia">La diferencia</a>
       <a href="#servicios">Servicios</a>
       <a href="#proceso">Proceso</a>
       <a href="#preguntas">Preguntas</a>
@@ -283,12 +307,18 @@ footer p{font-size:13px;color:rgba(255,255,255,.3);}
 
 <section class="hero">
   <div class="hero-content">
-    <div class="hero-badge">Para empresas y personas naturales</div>
-    <h1>Soluciones integrales de <em>tecnología y consultoría</em> para empresas y personas naturales</h1>
-    <p>Atendemos conjuntos residenciales, parqueaderos, bodegas, plantas industriales, puertos y más en toda Colombia.</p>
+    <div class="hero-badge">IA predictiva para tu operación</div>
+    <h1>No esperamos a que falle. <em>Lo anticipamos.</em></h1>
+    <p>Usamos inteligencia artificial predictiva para detectar el problema antes de que te cueste dinero, tiempo o tranquilidad. Ingeniería, seguridad y transformación digital que trabajan mientras tú duermes.</p>
     <div class="hero-btns">
-      <a href="#contacto" class="btn-primary">Solicitar cotización</a>
-      <a href="#servicios" class="btn-secondary">Ver servicios</a>
+      <a href="#contacto" class="btn-primary">Solicita tu diagnóstico gratis</a>
+      <a href="#diferencia" class="btn-secondary">Ver cómo funciona</a>
+    </div>
+    <div class="trust-badges">
+      <span>⚡ Cotización en <b>24h</b></span>
+      <span>🔍 Diagnóstico <b>sin costo</b></span>
+      <span>📊 <b>100%</b> trazabilidad digital</span>
+      <span>📍 Toda <b>Colombia</b></span>
     </div>
   </div>
 </section>
@@ -305,39 +335,63 @@ footer p{font-size:13px;color:rgba(255,255,255,.3);}
 <section class="problem" id="problema">
   <div class="section-inner">
     <div class="section-tag">El problema</div>
-    <h2 class="section-title">Los problemas que te resolvemos</h2>
-    <p class="section-sub">Si alguno de estos te suena, estás en el lugar correcto. Esto es lo que resolvemos todos los días.</p>
+    <h2 class="section-title">Lo que no se ve venir, es lo que más cuesta</h2>
+    <p class="section-sub">La mayoría reacciona cuando ya es tarde: cuando el equipo se paró, cuando la cámara no grabó, cuando el proceso ya se atrasó. Reaccionar sale caro.</p>
     <div class="problem-grid">
       <div class="problem-card">
         <div class="problem-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2.2 20.5h19.6L12 3Z"/><path d="M12 10v4.2"/><path d="M12 17.6v.4"/></svg></div>
-        <h3>Tu instalación eléctrica es una bomba de tiempo</h3>
-        <p>Instalaciones improvisadas, sobrecargadas o sin normativa que ponen en riesgo tu propiedad y a las personas. Cada falla es un peligro y un gasto inesperado.</p>
+        <h3>Paradas que no viste venir</h3>
+        <p>Un motor que se recalienta, un tablero que da señales… y nadie las vio. Cuando el equipo por fin falla, ya perdiste horas de producción y una reparación de urgencia que cuesta el triple.</p>
       </div>
       <div class="problem-card">
         <div class="problem-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg></div>
-        <h3>No tienes el control de tu propiedad</h3>
-        <p>Abres portones a mano, revisas cámaras una por una y aún así se te escapan cosas. La automatización con inteligencia artificial te da control total, 24/7.</p>
+        <h3>Seguridad que solo sirve después del susto</h3>
+        <p>Tienes cámaras, pero ¿graban de verdad cuando las necesitas? Muchos se enteran de que el sistema estaba fallando justo el día que pasó algo. Para entonces, ya no hay imagen que valga.</p>
       </div>
       <div class="problem-card">
-        <div class="problem-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 18h5"/><path d="M10 21h4"/><path d="M12 3a6 6 0 0 0-3.8 10.6c.5.5.8 1.1.8 1.8v.6h6v-.6c0-.7.3-1.3.8-1.8A6 6 0 0 0 12 3Z"/></svg></div>
-        <h3>Inviertes sin saber si es lo correcto</h3>
-        <p>Compras equipos o servicios sin un plan claro y terminas gastando de más en cosas que no resuelven el problema de fondo.</p>
+        <div class="problem-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V4M4 20h16M8 16l3.5-4 3 2.5L20 8"/></svg></div>
+        <h3>Decisiones a ciegas en tu operación</h3>
+        <p>Inviertes en tecnología, contratas gente, compras equipos… pero sin datos claros no sabes qué funciona ni dónde se te va la plata. Trabajas con el instinto, no con la información.</p>
       </div>
     </div>
+  </div>
+</section>
+
+<section class="difference" id="diferencia">
+  <div class="section-inner">
+    <div class="section-tag">La diferencia TecOper</div>
+    <h2 class="section-title">La diferencia no es que reparamos. Es que anticipamos.</h2>
+    <p class="section-sub">Cualquiera arregla lo que ya se dañó. Nosotros usamos IA para avisarte antes de que se dañe. Ese es el cambio de juego.</p>
+    <p class="diff-body">Conectamos sensores, datos y algoritmos que aprenden el comportamiento normal de tu operación. Cuando algo empieza a salirse de lo normal —una vibración, una temperatura, un patrón raro en video—, el sistema lo detecta y te avisa a tiempo.</p>
+    <div class="diff-list">
+      <div class="diff-item">
+        <h4><span>Menos</span> paradas</h4>
+        <p>Intervienes cuando es barato, no cuando es urgente.</p>
+      </div>
+      <div class="diff-item">
+        <h4><span>Más</span> tranquilidad</h4>
+        <p>Duermes sabiendo que algo está vigilando por ti, 24/7.</p>
+      </div>
+      <div class="diff-item">
+        <h4><span>Mejores</span> decisiones</h4>
+        <p>Ves tu operación en números claros, no en corazonadas.</p>
+      </div>
+    </div>
+    <p class="diff-quote">No esperamos a que falle. Nuestra IA <span>anticipa el problema antes de que ocurra.</span></p>
   </div>
 </section>
 
 <section id="servicios">
   <div class="section-inner">
     <div class="section-tag">Servicios</div>
-    <h2 class="section-title">Todo lo que tu operación necesita, en un solo proveedor</h2>
-    <p class="section-sub">Tres líneas de servicio integradas. Cotización, ejecución y facturación con trazabilidad digital completa.</p>
+    <h2 class="section-title">Tres frentes, una misma promesa: adelantarnos</h2>
+    <p class="section-sub">Todo lo que hacemos tiene el mismo motor: inteligencia predictiva que trabaja para que tú no apagues incendios.</p>
     <div class="services-grid">
       <div class="service-card featured">
         <div class="service-badge">Nuestra especialidad</div>
         <div class="service-img"><img src="serv-ingenieria.jpg" alt="Ingeniero trabajando en un tablero eléctrico industrial con PLC" loading="lazy"></div>
         <h3>Ingeniería y Automatización</h3>
-        <div class="service-desc">Diseño, montaje y programación eléctrica e industrial. Tus equipos rinden más y fallan menos.</div>
+        <div class="service-desc">Tus equipos rinden más, fallan menos y te avisan antes de dañarse. Ingeniería y automatización con integración IoT que se adelanta a la avería.</div>
         <ul class="service-list">
           <li>Servicio eléctrico industrial: revisión y corrección de equipos</li>
           <li>Servicio eléctrico locativo</li>
@@ -351,7 +405,7 @@ footer p{font-size:13px;color:rgba(255,255,255,.3);}
       <div class="service-card">
         <div class="service-img"><img src="serv-seguridad.jpg" alt="Técnico revisando una cámara de seguridad" loading="lazy"></div>
         <h3>Seguridad Electrónica</h3>
-        <div class="service-desc">Tu sistema de cámaras revisado cada mes, para que grabe cuando de verdad lo necesitas.</div>
+        <div class="service-desc">Cámaras que se cuidan solas: mantenimiento que verifica que estén grabando de verdad, antes de que las necesites. Nunca más te enteras del problema el día del problema.</div>
         <ul class="service-list">
           <li>Mantenimiento preventivo CCTV: plan mensual</li>
           <li>Limpieza de cámaras y ajuste de enfoque</li>
@@ -363,7 +417,7 @@ footer p{font-size:13px;color:rgba(255,255,255,.3);}
       <div class="service-card">
         <div class="service-img"><img src="serv-consultoria.jpg" alt="Profesional usando una tablet en un edificio moderno" loading="lazy"></div>
         <h3>Consultoría en Transformación Digital</h3>
-        <div class="service-desc">Digitaliza tu pyme sin gastar de más: un plan claro, priorizado por impacto y costo.</div>
+        <div class="service-desc">Digitaliza tu pyme sin gastar de más y sin adivinar. Auditamos tu operación, vemos dónde se te va el tiempo y la plata, y te damos un plan priorizado por impacto y costo.</div>
         <ul class="service-list">
           <li>Evaluación de los procesos de tu empresa</li>
           <li>Plan de digitalización priorizado por impacto y costo</li>
@@ -379,24 +433,28 @@ footer p{font-size:13px;color:rgba(255,255,255,.3);}
 <section class="process" id="proceso">
   <div class="section-inner">
     <div class="section-tag">Proceso</div>
-    <h2 class="section-title">Cómo trabajamos</h2>
-    <p class="section-sub">Un flujo claro desde tu primer contacto hasta la entrega con factura. Todo documentado.</p>
+    <h2 class="section-title">Claro, rápido y sin letra menuda</h2>
+    <p class="section-sub">Del primer mensaje a la solución funcionando, todo queda documentado y tú siempre sabes en qué vas.</p>
     <div class="process-steps">
       <div class="step">
         <div class="step-num">01</div>
-        <h3>Contacto</h3>
+        <h3>Diagnóstico</h3>
+        <p>Nos cuentas tu necesidad. Evaluamos tu operación sin costo y detectamos dónde la IA puede ahorrarte más.</p>
       </div>
       <div class="step">
         <div class="step-num">02</div>
-        <h3>Cotización</h3>
+        <h3>Cotización en 24h</h3>
+        <p>Recibes una propuesta formal, clara y priorizada por impacto. Sin sorpresas, sin costos escondidos.</p>
       </div>
       <div class="step">
         <div class="step-num">03</div>
-        <h3>Ejecución</h3>
+        <h3>Implementación</h3>
+        <p>Instalamos, conectamos y ponemos a andar la solución. Con técnico asignado, fecha y trazabilidad total.</p>
       </div>
       <div class="step">
         <div class="step-num">04</div>
-        <h3>Entrega y factura</h3>
+        <h3>Monitoreo y mejora</h3>
+        <p>No nos vamos cuando terminamos. El sistema sigue trabajando y tú sigues recibiendo alertas y reportes.</p>
       </div>
     </div>
   </div>
@@ -405,40 +463,40 @@ footer p{font-size:13px;color:rgba(255,255,255,.3);}
 <section id="preguntas">
   <div class="section-inner">
     <div class="section-tag">Preguntas frecuentes</div>
-    <h2 class="section-title">Resolvemos tus dudas antes de empezar</h2>
-    <p class="section-sub">Lo que más nos preguntan quienes nos contactan por primera vez.</p>
+    <h2 class="section-title">Lo que más nos preguntan</h2>
+    <p class="section-sub">Resolvemos tus dudas antes de empezar.</p>
     <div class="faq-list">
       <details>
-        <summary>¿La cotización tiene algún costo?</summary>
-        <p>No. Evaluamos tu necesidad y te enviamos una cotización formal con alcance y condiciones en menos de 24 horas, sin costo y sin compromiso.</p>
+        <summary>¿Qué significa "IA predictiva" en la práctica?</summary>
+        <p>Que en vez de esperar a que algo se dañe, monitoreamos tu operación y te avisamos cuando aparecen las primeras señales de falla. Actúas a tiempo, cuando arreglarlo todavía es barato.</p>
       </details>
       <details>
-        <summary>¿Atienden solo empresas o también personas naturales?</summary>
-        <p>Atendemos empresas, conjuntos residenciales y personas naturales. El proceso es el mismo: cotización formal, orden de servicio y entrega documentada.</p>
+        <summary>¿Esto solo sirve para empresas grandes?</summary>
+        <p>No. Trabajamos con pymes, conjuntos residenciales y plantas industriales. La tecnología se ajusta a tu tamaño y a tu presupuesto: empiezas por donde más te duele.</p>
       </details>
       <details>
-        <summary>¿En qué zonas prestan sus servicios?</summary>
-        <p>Prestamos servicios en Colombia: conjuntos residenciales, parqueaderos, bodegas, plantas industriales, puertos y más. Escríbenos con tu ubicación y te confirmamos la disponibilidad para tu zona.</p>
+        <summary>¿Cuánto cuesta el diagnóstico?</summary>
+        <p>Cero. Evaluamos tu necesidad y te enviamos la cotización sin costo y sin compromiso. Solo pagas si decides avanzar.</p>
       </details>
       <details>
-        <summary>¿Emiten factura?</summary>
-        <p>Sí. Todo servicio termina con entrega firmada, evidencia fotográfica y factura. La trazabilidad de tu servicio queda documentada de principio a fin.</p>
+        <summary>¿En cuánto tiempo me responden?</summary>
+        <p>Te enviamos una cotización formal en menos de 24 horas desde que nos contactas.</p>
       </details>
       <details>
-        <summary>¿Cómo queda documentado el servicio?</summary>
-        <p>Cada trabajo se ejecuta con una orden de servicio que registra el técnico asignado, la fecha y la dirección. Al finalizar recibes la entrega con firma y evidencia fotográfica.</p>
+        <summary>¿Atienden fuera de mi ciudad?</summary>
+        <p>Sí. Prestamos servicio en toda Colombia. Escríbenos tu ubicación y te confirmamos la disponibilidad para tu zona.</p>
       </details>
       <details>
-        <summary>¿Ofrecen mantenimiento recurrente?</summary>
-        <p>Sí. Dentro de nuestros servicios de tecnología ofrecemos mantenimiento programado, visitas preventivas periódicas y soporte prioritario según lo que necesites.</p>
+        <summary>¿Todo queda documentado?</summary>
+        <p>Sí. Cada servicio tiene orden con técnico, fecha y evidencia, y terminamos con entrega firmada y factura. 100% trazabilidad digital, de principio a fin.</p>
       </details>
     </div>
   </div>
 </section>
 
 <section class="cta-section" id="contacto">
-  <h2>¿Necesitas un servicio de tecnología o consultoría?</h2>
-  <p>Escríbenos y te enviamos una cotización formal en menos de 24 horas. Sin costo, sin compromiso.</p>
+  <h2>Deja de reaccionar. Empieza a anticiparte.</h2>
+  <p>Un diagnóstico gratis puede mostrarte cuánto estás perdiendo por esperar a que las cosas fallen. Sin costo, sin compromiso, en menos de 24 horas.</p>
   <div class="cta-btns">
     <a href="https://wa.me/573148319544?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20TecOper%20y%20necesito%20cotizar%20un%20servicio%20para%20mi%20empresa%20o%20conjunto." class="btn-whatsapp">
       <svg viewBox="0 0 24 24" width="22" height="22"><path fill="#fff" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -446,6 +504,12 @@ footer p{font-size:13px;color:rgba(255,255,255,.3);}
     </a>
   </div>
   <p class="cta-phone">O escríbenos al <a href="https://wa.me/573148319544?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20TecOper%20y%20necesito%20cotizar%20un%20servicio." target="_blank" rel="noopener">+57 314 831 9544</a></p>
+  <div class="trust-badges">
+    <span>⚡ Cotización en <b>24h</b></span>
+    <span>🔍 Diagnóstico <b>sin costo</b></span>
+    <span>📊 <b>100%</b> trazabilidad digital</span>
+    <span>📍 Toda <b>Colombia</b></span>
+  </div>
   <div class="contact-form-card">
     <form action="https://formspree.io/f/mzblroje" method="POST" id="contactForm">
       <input type="hidden" name="_subject" value="Nuevo contacto desde la web - TecOper">
