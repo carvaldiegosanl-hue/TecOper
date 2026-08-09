@@ -74,21 +74,67 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<!-- Marca la pagina como "con JS" antes de pintar. Todo el estado inicial
+     oculto de las animaciones cuelga de .js, asi que sin script la pagina
+     se ve completa en vez de quedar en blanco. -->
+<script>document.documentElement.className+=' js';</script>
 <style>
-:root{--primary:#0B1D3A;--primary-light:#132D56;--accent:#E2231A;--accent-light:#FF5252;--accent-glow:rgba(226,35,26,.15);--text:#101a30;--text2:#4c5670;--text3:#9098b0;--bg:#ffffff;--bg2:#f6f7fb;--bg3:#eef0f7;--border:#e1e4ee;--radius:12px;--radius-lg:20px;--mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;}
+:root{--primary:#0B1D3A;--primary-light:#132D56;--accent:#E2231A;--accent-light:#FF5252;--accent-ink:#B31810;--accent-glow:rgba(226,35,26,.15);--text:#101a30;--text2:#4c5670;--text3:#9098b0;--bg:#ffffff;--bg2:#f6f7fb;--bg3:#eef0f7;--border:#e1e4ee;--radius:12px;--radius-lg:20px;--mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;--ease:cubic-bezier(.22,.61,.36,1);}
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 body{font-family:'Inter',system-ui,sans-serif;color:var(--text);background:var(--bg);line-height:1.6;}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px;}
 .hero h1,.section-title,.cta-section h2{text-wrap:balance;}
+
+/* MOVIMIENTO
+   El estado inicial oculto vive detrás de .js: si el script no corre,
+   la página se ve completa. Nada de esto se aplica con reduced-motion. */
+@keyframes rise{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:none;}}
+@keyframes pop{from{opacity:0;transform:scale(.6);}to{opacity:1;transform:scale(1);}}
+/* Hijos animables de cada bloque .rv. El estado oculto se declara aqui
+   (aplica antes del primer pintado, sin parpadeo); el JS solo reparte el
+   retardo --d y marca .is-visible cuando el bloque entra en pantalla. */
+.js .rv .section-tag,.js .rv .section-title,.js .rv .section-sub,
+.js .rv .problem-card,.js .rv .service-card,.js .rv .diff-item,
+.js .rv .diff-quote,.js .rv .video-frame,.js .rv .faq-list details,
+.js .rv .stats-inner>div,.js .rv>h2,.js .rv>p,.js .rv>.cta-btns,
+.js .rv>.trust-badges,.js .rv .contact-form-card{
+  opacity:0;transform:translateY(16px);
+  transition:opacity .6s var(--ease),transform .6s var(--ease);
+  transition-delay:var(--d,0ms);
+}
+.js .rv.is-visible .section-tag,.js .rv.is-visible .section-title,.js .rv.is-visible .section-sub,
+.js .rv.is-visible .problem-card,.js .rv.is-visible .service-card,.js .rv.is-visible .diff-item,
+.js .rv.is-visible .diff-quote,.js .rv.is-visible .video-frame,.js .rv.is-visible .faq-list details,
+.js .rv.is-visible .stats-inner>div,.js .rv.is-visible>h2,.js .rv.is-visible>p,.js .rv.is-visible>.cta-btns,
+.js .rv.is-visible>.trust-badges,.js .rv.is-visible .contact-form-card{opacity:1;transform:none;}
+/* Las reglas de revelado son mas especificas que los :hover originales,
+   asi que hay que devolverles la prioridad. */
+.js .rv.is-visible .service-card:hover{transform:translateY(-4px);}
+.js .rv.is-visible .problem-card:hover{transform:translateY(-3px);}
+/* backwards y no both: al terminar, la animacion deja de mandar sobre
+   el transform y los :hover vuelven a funcionar. */
+.js .hero-seq>*{animation:rise .7s var(--ease) backwards;animation-delay:var(--d,0ms);}
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto;}
   *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important;}
+  .js .hero-seq>*,.js .wa-float,.js .rv *{opacity:1!important;transform:none!important;}
+  .js .process-steps::before{transform:scaleX(1)!important;}
+}
+/* Al imprimir no hay scroll que dispare el observador: sin esto, todo lo
+   que no se hubiera revelado saldria en blanco. */
+@media print{
+  .js .hero-seq>*,.js .rv *{opacity:1!important;transform:none!important;}
+  .wa-float,nav{display:none!important;}
 }
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(11,29,58,.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.08);}
-.nav-inner{max-width:1100px;margin:0 auto;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(11,29,58,.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.08);transition:background .3s var(--ease),box-shadow .3s var(--ease),border-color .3s var(--ease);}
+nav.scrolled{background:rgba(9,24,48,.98);border-bottom-color:rgba(255,255,255,.12);box-shadow:0 10px 30px rgba(4,12,26,.35);}
+.nav-inner{max-width:1100px;margin:0 auto;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;transition:padding .3s var(--ease);}
+nav.scrolled .nav-inner{padding-top:11px;padding-bottom:11px;}
+.logo-badge,.logo-img{transition:transform .3s var(--ease);}
+nav.scrolled .logo-badge{transform:scale(.92);}
 .logo{display:flex;align-items:center;gap:12px;font-size:21px;font-weight:800;color:#fff;text-decoration:none;letter-spacing:-.3px;line-height:1;}
 .logo-accent{color:var(--accent-light);}
 .logo-badge{width:40px;height:40px;flex-shrink:0;border-radius:11px;background:linear-gradient(160deg,rgba(255,255,255,.10) 0%,rgba(255,255,255,.02) 100%);border:1px solid rgba(255,255,255,.10);box-shadow:0 4px 16px rgba(226,35,26,.28),inset 0 1px 0 rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;}
@@ -130,7 +176,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(11,29,58,.95
 /* SECTIONS */
 section{padding:80px 24px;}
 .section-inner{max-width:1000px;margin:0 auto;}
-.section-tag{display:inline-block;background:var(--accent-glow);color:var(--accent);padding:5px 14px;border-radius:99px;font-family:var(--mono);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px;}
+/* --accent-ink en vez de --accent: sobre el rosa claro de la pildora,
+   el rojo de marca solo llega a 3,7:1. Este llega a 5,4:1. */
+.section-tag{display:inline-block;background:var(--accent-glow);color:var(--accent-ink);padding:5px 14px;border-radius:99px;font-family:var(--mono);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px;}
 .section-title{font-size:clamp(26px,3.5vw,38px);font-weight:800;color:var(--primary);line-height:1.2;margin-bottom:14px;letter-spacing:-.3px;}
 .section-sub{font-size:16px;color:var(--text2);max-width:600px;line-height:1.7;margin-bottom:48px;}
 
@@ -146,8 +194,10 @@ section{padding:80px 24px;}
 
 /* SERVICES */
 .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;}
-.service-card{border:1px solid var(--border);border-radius:var(--radius-lg);padding:32px;position:relative;overflow:hidden;transition:all .2s;}
-.service-card:hover{border-color:var(--accent);box-shadow:0 8px 30px rgba(226,35,26,.1);}
+/* Columna flexible: la lista empuja y el boton se ancla abajo, para que
+   los tres "Cotizar" queden alineados aunque las listas midan distinto. */
+.service-card{display:flex;flex-direction:column;border:1px solid var(--border);border-radius:var(--radius-lg);padding:32px;position:relative;overflow:hidden;transition:border-color .25s var(--ease),box-shadow .25s var(--ease),transform .25s var(--ease);}
+.service-card:hover{border-color:var(--accent);box-shadow:0 12px 34px rgba(226,35,26,.13);transform:translateY(-4px);}
 .service-card.featured{border-color:var(--accent);background:linear-gradient(180deg,var(--accent-glow) 0%,var(--bg) 100%);}
 .service-badge{position:absolute;top:16px;right:16px;background:var(--accent);color:#fff;padding:4px 12px;border-radius:99px;font-size:11px;font-weight:700;}
 .service-img{margin:-32px -32px 22px;aspect-ratio:16/10;overflow:hidden;background:var(--bg3);}
@@ -158,7 +208,7 @@ section{padding:80px 24px;}
 .service-list{list-style:none;margin-bottom:24px;}
 .service-list li{font-size:14px;color:var(--text2);padding:6px 0;padding-left:22px;position:relative;}
 .service-list li::before{content:'';position:absolute;left:0;top:12px;width:6px;height:6px;border-radius:50%;background:var(--accent);}
-.service-cta{display:block;text-align:center;padding:12px;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none;border:2px solid var(--accent);color:var(--accent);transition:all .2s;}
+.service-cta{display:block;margin-top:auto;text-align:center;padding:12px;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none;border:2px solid var(--accent);color:var(--accent);transition:background .2s var(--ease),color .2s var(--ease);}
 .service-cta:hover,.service-card.featured .service-cta{background:var(--accent);color:#fff;}
 
 /* VIDEO */
@@ -174,10 +224,19 @@ section{padding:80px 24px;}
 .process-steps{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
 @media(min-width:601px){
   .process-steps::before{content:'';position:absolute;top:56px;left:12.5%;right:12.5%;height:2px;background:rgba(255,255,255,.14);z-index:0;}
+  /* La linea se traza de izquierda a derecha: los cuatro pasos son una
+     secuencia real, asi que el movimiento comunica el orden de lectura. */
+  .js .process-steps::before{transform:scaleX(0);transform-origin:left center;transition:transform .9s var(--ease) .1s;}
+  .js .process-steps.is-visible::before{transform:scaleX(1);}
 }
-.step{position:relative;z-index:1;text-align:center;padding:30px 20px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);transition:background .2s,transform .2s;}
+.step{position:relative;z-index:1;text-align:center;padding:30px 20px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);transition:background .2s var(--ease),transform .2s var(--ease);}
 .step:hover{background:rgba(255,255,255,.08);transform:translateY(-3px);}
+.js .process-steps .step{opacity:0;transform:translateY(18px);transition:opacity .55s var(--ease),transform .55s var(--ease),background .2s var(--ease);transition-delay:var(--d,0ms);}
+.js .process-steps.is-visible .step{opacity:1;transform:none;}
+.js .process-steps.is-visible .step:hover{transform:translateY(-3px);}
 .step-num{width:52px;height:52px;border-radius:50%;background:var(--accent);color:#fff;font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:16px;font-weight:600;letter-spacing:.02em;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
+.js .process-steps .step-num{opacity:0;transform:scale(.55);transition:opacity .4s var(--ease),transform .5s cubic-bezier(.34,1.56,.64,1);transition-delay:calc(var(--d,0ms) + 160ms);}
+.js .process-steps.is-visible .step-num{opacity:1;transform:none;}
 .step h3{font-size:16px;font-weight:700;letter-spacing:-.2px;margin:0;}
 
 /* HERO BADGES / TRUST PILLS */
@@ -207,8 +266,14 @@ section{padding:80px 24px;}
 .faq-list details[open]{border-color:var(--accent);}
 .faq-list summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 22px;font-size:15px;font-weight:600;color:var(--text);}
 .faq-list summary::-webkit-details-marker{display:none;}
-.faq-list summary::after{content:'+';flex-shrink:0;width:26px;height:26px;border-radius:50%;background:var(--bg3);color:var(--text2);font-size:17px;font-weight:500;display:flex;align-items:center;justify-content:center;transition:transform .2s,background .2s,color .2s;}
-.faq-list details[open] summary::after{content:'−';background:var(--accent);color:#fff;}
+/* Icono de dos barras: el trazo vertical se contrae al abrir, asi que
+   el paso de + a - es un movimiento y no un cambio de caracter. */
+.faq-icon{position:relative;flex-shrink:0;width:26px;height:26px;border-radius:50%;background:var(--bg3);transition:background .25s var(--ease);}
+.faq-icon::before,.faq-icon::after{content:'';position:absolute;top:50%;left:50%;width:11px;height:2px;border-radius:2px;background:var(--text2);transform:translate(-50%,-50%);transition:transform .3s var(--ease),background .25s var(--ease);}
+.faq-icon::after{transform:translate(-50%,-50%) rotate(90deg);}
+.faq-list details[open] .faq-icon{background:var(--accent);}
+.faq-list details[open] .faq-icon::before,.faq-list details[open] .faq-icon::after{background:#fff;}
+.faq-list details[open] .faq-icon::after{transform:translate(-50%,-50%) rotate(90deg) scaleX(0);}
 .faq-list details p{padding:0 22px 20px;font-size:14px;color:var(--text2);line-height:1.7;max-width:65ch;}
 
 /* CTA */
@@ -223,9 +288,14 @@ section{padding:80px 24px;}
 .cta-phone a:hover{border-color:#fff;}
 .contact-form-card{max-width:520px;margin:40px auto 0;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius-lg);padding:32px;text-align:left;}
 .form-row{display:flex;gap:12px;}
-#contactForm input,#contactForm select,#contactForm textarea{width:100%;padding:12px 14px;border-radius:8px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05);color:#fff;font-family:inherit;font-size:14px;margin-bottom:12px;}
-#contactForm input::placeholder,#contactForm textarea::placeholder{color:rgba(255,255,255,.4);}
-#contactForm select{color:rgba(255,255,255,.7);}
+/* Etiqueta visible por campo: con solo placeholder, el nombre del campo
+   desaparece apenas la persona escribe. */
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;flex:1;min-width:0;}
+.field label{font-size:13px;font-weight:600;color:rgba(255,255,255,.8);}
+#contactForm input,#contactForm select,#contactForm textarea{width:100%;padding:12px 14px;border-radius:8px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05);color:#fff;font-family:inherit;font-size:14px;transition:border-color .2s var(--ease),box-shadow .2s var(--ease),background .2s var(--ease);}
+#contactForm input:hover,#contactForm select:hover,#contactForm textarea:hover{background:rgba(255,255,255,.08);}
+#contactForm input::placeholder,#contactForm textarea::placeholder{color:rgba(255,255,255,.55);}
+#contactForm select{color:rgba(255,255,255,.92);appearance:none;-webkit-appearance:none;padding-right:38px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5 6 6.5l5-5' stroke='%23ffffff' stroke-opacity='.65' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;background-size:12px 8px;}
 #contactForm select option{color:#0f172a;}
 #contactForm input:focus,#contactForm select:focus,#contactForm textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(226,35,26,.25);}
 #contactForm textarea{resize:vertical;min-height:90px;}
@@ -239,13 +309,14 @@ section{padding:80px 24px;}
 
 /* FOOTER */
 footer{background:var(--primary);padding:32px 24px;text-align:center;border-top:1px solid rgba(255,255,255,.06);}
-footer p{font-size:13px;color:rgba(255,255,255,.3);}
+/* .3 daba 2,67:1 sobre el azul del pie, ilegible. .55 llega a 5,86:1. */
+footer p{font-size:13px;color:rgba(255,255,255,.55);}
 .footer-contact{margin-top:6px;}
-.footer-contact a{color:rgba(255,255,255,.55);text-decoration:none;transition:color .2s;}
+.footer-contact a{color:rgba(255,255,255,.72);text-decoration:none;transition:color .2s;}
 .footer-contact a:hover{color:#fff;}
 .footer-social{display:flex;justify-content:center;gap:12px;margin-bottom:18px;}
-.footer-social a{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;transition:background .2s;}
-.footer-social a:hover{background:rgba(255,255,255,.14);}
+.footer-social a{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;transition:background .2s var(--ease),transform .25s var(--ease);}
+.footer-social a:hover{background:rgba(255,255,255,.14);transform:translateY(-3px);}
 .footer-social svg{width:18px;height:18px;fill:rgba(255,255,255,.6);}
 .footer-social a:hover svg{fill:#fff;}
 
@@ -286,8 +357,9 @@ footer p{font-size:13px;color:rgba(255,255,255,.3);}
 }
 
 /* WHATSAPP FLOAT */
-.wa-float{position:fixed;bottom:24px;right:24px;z-index:90;background:#25D366;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);transition:transform .2s;text-decoration:none;}
-.wa-float:hover{transform:scale(1.1);}
+.wa-float{position:fixed;bottom:24px;right:24px;z-index:90;background:#25D366;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);transition:transform .2s var(--ease),box-shadow .2s var(--ease);text-decoration:none;}
+.wa-float:hover{transform:scale(1.1);box-shadow:0 6px 26px rgba(37,211,102,.55);}
+.js .wa-float{animation:pop .5s var(--ease) .7s backwards;}
 .wa-float svg{width:28px;height:28px;fill:#fff;}
 </style>
 </head>
@@ -310,15 +382,15 @@ footer p{font-size:13px;color:rgba(255,255,255,.3);}
 </nav>
 
 <section class="hero">
-  <div class="hero-content">
-    <div class="hero-badge">Prevención, no reacción</div>
-    <h1>No esperamos a que falle. <em>Lo anticipamos.</em></h1>
-    <p>Nos adelantamos a la falla con ingeniería, mantenimiento y automatización, para resolver el problema antes de que te cueste dinero, tiempo o tranquilidad.</p>
-    <div class="hero-btns">
+  <div class="hero-content hero-seq">
+    <div class="hero-badge" style="--d:80ms">Prevención, no reacción</div>
+    <h1 style="--d:180ms">No esperamos a que falle. <em>Lo anticipamos.</em></h1>
+    <p style="--d:300ms">Nos adelantamos a la falla con ingeniería, mantenimiento y automatización, para resolver el problema antes de que te cueste dinero, tiempo o tranquilidad.</p>
+    <div class="hero-btns" style="--d:420ms">
       <a href="#contacto" class="btn-primary">Solicita tu diagnóstico gratis</a>
       <a href="#diferencia" class="btn-secondary">Ver cómo funciona</a>
     </div>
-    <div class="trust-badges">
+    <div class="trust-badges" style="--d:540ms">
       <span>⚡ Cotización en <b>24h</b></span>
       <span>🔍 Diagnóstico <b>sin costo</b></span>
       <span>📊 <b>100%</b> trazabilidad digital</span>
@@ -327,7 +399,7 @@ footer p{font-size:13px;color:rgba(255,255,255,.3);}
   </div>
 </section>
 
-<div class="stats">
+<div class="stats rv">
   <div class="stats-inner">
     <div><div class="stat-num">3</div><div class="stat-lbl">Líneas de servicio</div></div>
     <div><div class="stat-num"><span>$</span>0</div><div class="stat-lbl">Costo de la cotización</div></div>
@@ -336,7 +408,7 @@ footer p{font-size:13px;color:rgba(255,255,255,.3);}
   </div>
 </div>
 
-<section class="problem" id="problema">
+<section class="problem rv" id="problema">
   <div class="section-inner">
     <div class="section-tag">El problema</div>
     <h2 class="section-title">Lo que no se ve venir, es lo que más cuesta</h2>
@@ -361,7 +433,7 @@ footer p{font-size:13px;color:rgba(255,255,255,.3);}
   </div>
 </section>
 
-<section class="difference" id="diferencia">
+<section class="difference rv" id="diferencia">
   <div class="section-inner">
     <div class="section-tag">La diferencia TecOper</div>
     <h2 class="section-title">La diferencia no es que reparamos. Es que anticipamos.</h2>
@@ -384,7 +456,7 @@ footer p{font-size:13px;color:rgba(255,255,255,.3);}
   </div>
 </section>
 
-<section id="servicios">
+<section class="rv" id="servicios">
   <div class="section-inner">
     <div class="section-tag">Servicios</div>
     <h2 class="section-title">Tres frentes, una misma promesa: adelantarnos</h2>
@@ -432,7 +504,7 @@ footer p{font-size:13px;color:rgba(255,255,255,.3);}
   </div>
 </section>
 
-<section class="video-section" id="video">
+<section class="video-section rv" id="video">
   <div class="section-inner">
     <div class="section-tag">Video</div>
     <h2 class="section-title">Conócenos en un minuto</h2>
@@ -443,7 +515,7 @@ footer p{font-size:13px;color:rgba(255,255,255,.3);}
   </div>
 </section>
 
-<section class="process" id="proceso">
+<section class="process rv" id="proceso">
   <div class="section-inner">
     <div class="section-tag">Proceso</div>
     <h2 class="section-title">Claro, rápido y sin letra menuda</h2>
@@ -469,41 +541,41 @@ footer p{font-size:13px;color:rgba(255,255,255,.3);}
   </div>
 </section>
 
-<section id="preguntas">
+<section class="rv" id="preguntas">
   <div class="section-inner">
     <div class="section-tag">Preguntas frecuentes</div>
     <h2 class="section-title">Lo que más nos preguntan</h2>
     <p class="section-sub">Resolvemos tus dudas antes de empezar.</p>
     <div class="faq-list">
       <details>
-        <summary>¿Qué quieren decir con que "se anticipan"?</summary>
+        <summary>¿Qué quieren decir con que "se anticipan"?<span class="faq-icon" aria-hidden="true"></span></summary>
         <p>Que en vez de esperar a que algo se dañe, hacemos mantenimiento y revisiones programadas que detectan las señales tempranas de falla. Así actúas a tiempo, cuando arreglarlo todavía es barato.</p>
       </details>
       <details>
-        <summary>¿Esto solo sirve para empresas grandes?</summary>
+        <summary>¿Esto solo sirve para empresas grandes?<span class="faq-icon" aria-hidden="true"></span></summary>
         <p>No. Trabajamos con pymes, conjuntos residenciales y plantas industriales. La tecnología se ajusta a tu tamaño y a tu presupuesto: empiezas por donde más te duele.</p>
       </details>
       <details>
-        <summary>¿Cuánto cuesta el diagnóstico?</summary>
+        <summary>¿Cuánto cuesta el diagnóstico?<span class="faq-icon" aria-hidden="true"></span></summary>
         <p>Cero. Evaluamos tu necesidad y te enviamos la cotización sin costo y sin compromiso. Solo pagas si decides avanzar.</p>
       </details>
       <details>
-        <summary>¿En cuánto tiempo me responden?</summary>
+        <summary>¿En cuánto tiempo me responden?<span class="faq-icon" aria-hidden="true"></span></summary>
         <p>Te enviamos una cotización formal en menos de 24 horas desde que nos contactas.</p>
       </details>
       <details>
-        <summary>¿Atienden fuera de mi ciudad?</summary>
+        <summary>¿Atienden fuera de mi ciudad?<span class="faq-icon" aria-hidden="true"></span></summary>
         <p>Sí. Prestamos servicio en toda Colombia. Escríbenos tu ubicación y te confirmamos la disponibilidad para tu zona.</p>
       </details>
       <details>
-        <summary>¿Todo queda documentado?</summary>
+        <summary>¿Todo queda documentado?<span class="faq-icon" aria-hidden="true"></span></summary>
         <p>Sí. Cada servicio tiene orden con técnico, fecha y evidencia, y terminamos con entrega firmada y factura. 100% trazabilidad digital, de principio a fin.</p>
       </details>
     </div>
   </div>
 </section>
 
-<section class="cta-section" id="contacto">
+<section class="cta-section rv" id="contacto">
   <h2>Deja de reaccionar. Empieza a anticiparte.</h2>
   <p>Un diagnóstico gratis puede mostrarte cuánto estás perdiendo por esperar a que las cosas fallen. Sin costo, sin compromiso, en menos de 24 horas.</p>
   <div class="cta-btns">
@@ -524,22 +596,37 @@ footer p{font-size:13px;color:rgba(255,255,255,.3);}
       <input type="hidden" name="_subject" value="Nuevo contacto desde la web - TecOper">
       <input type="text" name="_gotcha" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
       <div class="form-row">
-        <input type="text" name="nombre" placeholder="Nombre completo" aria-label="Nombre completo" required>
-        <input type="email" name="email" placeholder="Correo electrónico" aria-label="Correo electrónico" required>
+        <div class="field">
+          <label for="f-nombre">Nombre completo</label>
+          <input type="text" id="f-nombre" name="nombre" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="f-email">Correo electrónico</label>
+          <input type="email" id="f-email" name="email" autocomplete="email" required>
+        </div>
       </div>
       <div class="form-row">
-        <input type="tel" name="telefono" placeholder="Teléfono / WhatsApp" aria-label="Teléfono">
-        <select name="servicio" aria-label="Servicio de interés">
-          <option value="">Servicio de interés</option>
-          <option>Ingeniería y Automatización</option>
-          <option>Seguridad Electrónica</option>
-          <option>Consultoría en Transformación Digital</option>
-          <option>Otro</option>
-        </select>
+        <div class="field">
+          <label for="f-telefono">Teléfono / WhatsApp</label>
+          <input type="tel" id="f-telefono" name="telefono" autocomplete="tel" placeholder="Opcional">
+        </div>
+        <div class="field">
+          <label for="f-servicio">Servicio de interés</label>
+          <select id="f-servicio" name="servicio">
+            <option value="">Selecciona una opción</option>
+            <option>Ingeniería y Automatización</option>
+            <option>Seguridad Electrónica</option>
+            <option>Consultoría en Transformación Digital</option>
+            <option>Otro</option>
+          </select>
+        </div>
       </div>
-      <textarea name="mensaje" placeholder="Cuéntanos qué necesitas..." aria-label="Mensaje" rows="4" required></textarea>
+      <div class="field">
+        <label for="f-mensaje">Cuéntanos qué necesitas</label>
+        <textarea id="f-mensaje" name="mensaje" rows="4" required></textarea>
+      </div>
       <button type="submit">Enviar mensaje</button>
-      <p class="form-msg" id="formMsg"></p>
+      <p class="form-msg" id="formMsg" role="status" aria-live="polite"></p>
     </form>
   </div>
 </section>
@@ -595,6 +682,60 @@ footer p{font-size:13px;color:rgba(255,255,255,.3);}
     document.addEventListener('keydown',function(e){
       if(e.key==='Escape')closeMenu();
     });
+  }
+
+  /* Barra superior: se compacta y gana sombra al bajar */
+  var navEl=document.querySelector('nav'),ticking=false;
+  if(navEl){
+    var onScroll=function(){
+      if(ticking)return;
+      ticking=true;
+      requestAnimationFrame(function(){
+        navEl.classList.toggle('scrolled',window.scrollY>40);
+        ticking=false;
+      });
+    };
+    window.addEventListener('scroll',onScroll,{passive:true});
+    onScroll();
+  }
+
+  /* Revelado al entrar en pantalla.
+     El CSS ya dejo los elementos ocultos; aqui solo se reparte el retardo
+     y se marca el bloque como visible. Con reduced-motion no se observa
+     nada: la hoja de estilos los deja visibles de entrada. */
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var CHILDREN='.section-tag,.section-title,.section-sub,.problem-card,.service-card,'+
+               '.diff-item,.diff-quote,.video-frame,.faq-list details,.stats-inner>div,'+
+               '.contact-form-card,:scope>h2,:scope>p,:scope>.cta-btns,:scope>.trust-badges';
+  var blocks=document.querySelectorAll('.rv');
+  var steps=document.querySelector('.process-steps');
+
+  if(!reduce&&'IntersectionObserver' in window){
+    var reveal=function(entries,obs){
+      entries.forEach(function(e){
+        if(!e.isIntersecting)return;
+        e.target.classList.add('is-visible');
+        obs.unobserve(e.target);
+      });
+    };
+    var io=new IntersectionObserver(reveal,{threshold:.12,rootMargin:'0px 0px -6% 0px'});
+    Array.prototype.forEach.call(blocks,function(b){
+      Array.prototype.forEach.call(b.querySelectorAll(CHILDREN),function(k,i){
+        k.style.setProperty('--d',(i*80)+'ms');
+      });
+      io.observe(b);
+    });
+    /* Los cuatro pasos son una secuencia, asi que entran en orden y la
+       linea se traza a la par. Retardo mayor para que se lea el recorrido. */
+    if(steps){
+      Array.prototype.forEach.call(steps.children,function(s,i){
+        s.style.setProperty('--d',(i*150)+'ms');
+      });
+      new IntersectionObserver(reveal,{threshold:.25}).observe(steps);
+    }
+  }else{
+    Array.prototype.forEach.call(blocks,function(b){b.classList.add('is-visible');});
+    if(steps)steps.classList.add('is-visible');
   }
 
   var form=document.getElementById('contactForm');
