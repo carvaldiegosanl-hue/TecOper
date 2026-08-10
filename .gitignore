@@ -12,3 +12,11 @@ node_modules/
 
 # Netlify
 .netlify/
+
+# Tipografias de licencia comercial. Este repo es publico: subir un .otf o
+# .ttf de una fundicion lo deja descargable por cualquiera, que es
+# redistribucion. Las fuentes del sitio son WOFF2 de licencia abierta y
+# viven en fonts/.
+Tipograf*/
+*.otf
+*.ttf
