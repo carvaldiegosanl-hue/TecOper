@@ -42,6 +42,8 @@
   "email": "tecoper.admon@gmail.com",
   "address": {
     "@type": "PostalAddress",
+    "addressLocality": "Medellín",
+    "addressRegion": "Antioquia",
     "addressCountry": "CO"
   },
   "areaServed": { "@type": "Country", "name": "Colombia" },
@@ -114,7 +116,8 @@ body{font-family:var(--body);color:var(--text);background:var(--bg);line-height:
 .js .rv .problem-card,.js .rv .service-card,.js .rv .diff-item,
 .js .rv .diff-quote,.js .rv .video-frame,.js .rv .faq-list details,
 .js .rv .stats-inner>div,.js .rv>h2,.js .rv>p,.js .rv>.cta-btns,
-.js .rv>.trust-badges,.js .rv .contact-form-card{
+.js .rv>.trust-badges,.js .rv .contact-form-card,
+.js .rv .fact,.js .rv .coverage-map{
   opacity:0;transform:translateY(16px);
   transition:opacity .6s var(--ease),transform .6s var(--ease);
   transition-delay:var(--d,0ms);
@@ -123,7 +126,8 @@ body{font-family:var(--body);color:var(--text);background:var(--bg);line-height:
 .js .rv.is-visible .problem-card,.js .rv.is-visible .service-card,.js .rv.is-visible .diff-item,
 .js .rv.is-visible .diff-quote,.js .rv.is-visible .video-frame,.js .rv.is-visible .faq-list details,
 .js .rv.is-visible .stats-inner>div,.js .rv.is-visible>h2,.js .rv.is-visible>p,.js .rv.is-visible>.cta-btns,
-.js .rv.is-visible>.trust-badges,.js .rv.is-visible .contact-form-card{opacity:1;transform:none;}
+.js .rv.is-visible>.trust-badges,.js .rv.is-visible .contact-form-card,
+.js .rv.is-visible .fact,.js .rv.is-visible .coverage-map{opacity:1;transform:none;}
 /* Las reglas de revelado son mas especificas que los :hover originales,
    asi que hay que devolverles la prioridad. */
 .js .rv.is-visible .service-card:hover{transform:translateY(-4px);}
@@ -276,6 +280,33 @@ section{padding:80px 24px;}
 .diff-quote{font-size:clamp(20px,2.8vw,29px);font-weight:600;line-height:1.36;color:#fff;border-left:3px solid var(--accent);padding-left:22px;max-width:760px;text-wrap:balance;}
 .diff-quote span{color:var(--accent-light);}
 
+/* COBERTURA
+   El mapa es un SVG propio con geometria de Natural Earth (dominio
+   publico), no un embebido: sin peticiones a terceros y pintado en los
+   colores de la marca. */
+.coverage{background:var(--bg2);}
+.coverage-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);padding:44px;display:grid;grid-template-columns:1fr auto;gap:46px;align-items:center;}
+.coverage .section-title{font-size:clamp(25px,3.1vw,34px);}
+.coverage .section-sub{margin-bottom:26px;max-width:46ch;}
+.coverage-facts{display:flex;gap:14px;flex-wrap:wrap;}
+.fact{flex:1;min-width:158px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;}
+.fact-val{font-family:var(--display);font-size:21px;font-weight:700;color:var(--primary);line-height:1.2;letter-spacing:-.01em;}
+.fact-lbl{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.07em;margin-top:5px;}
+.coverage-map{width:280px;flex-shrink:0;}
+.coverage-map svg{width:100%;height:auto;display:block;}
+.map-shape{fill:rgba(11,29,58,.055);stroke:rgba(11,29,58,.3);stroke-width:2.5;stroke-linejoin:round;}
+.map-ring{fill:none;stroke:var(--accent);stroke-width:2.5;opacity:.4;}
+.map-base{fill:var(--accent);}
+.map-lbl{font-family:var(--mono);font-size:20px;font-weight:600;fill:var(--primary);}
+@media(max-width:820px){
+  .coverage-card{grid-template-columns:1fr;gap:34px;padding:32px;}
+  .coverage-map{width:216px;margin:0 auto;}
+}
+@media(max-width:480px){
+  .coverage-card{padding:24px;}
+  .fact{min-width:100%;}
+}
+
 /* FAQ */
 .faq-list{max-width:760px;display:flex;flex-direction:column;gap:12px;}
 .faq-list details{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:border-color .2s;}
@@ -391,6 +422,7 @@ footer p{font-size:13px;color:rgba(255,255,255,.55);}
       <a href="#diferencia">La diferencia</a>
       <a href="#servicios">Servicios</a>
       <a href="#proceso">Proceso</a>
+      <a href="#cobertura">Cobertura</a>
       <a href="#preguntas">Preguntas</a>
       <a href="#contacto" class="nav-cta">Cotizar ahora</a>
     </div>
@@ -552,6 +584,37 @@ footer p{font-size:13px;color:rgba(255,255,255,.55);}
       <div class="step">
         <div class="step-num">04</div>
         <h3>Monitoreo y mejora</h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="coverage rv" id="cobertura">
+  <div class="section-inner">
+    <div class="coverage-card">
+      <div class="coverage-copy">
+        <div class="section-tag">Cobertura</div>
+        <h2 class="section-title">Estamos en Medellín. Trabajamos en todo el país.</h2>
+        <p class="section-sub">Operamos desde Medellín y atendemos proyectos en cualquier departamento. Escríbenos dónde estás y te confirmamos disponibilidad y tiempos para tu zona antes de cotizar.</p>
+        <div class="coverage-facts">
+          <div class="fact">
+            <div class="fact-val">Medellín</div>
+            <div class="fact-lbl">Base de operaciones</div>
+          </div>
+          <div class="fact">
+            <div class="fact-val">Toda Colombia</div>
+            <div class="fact-lbl">Cobertura</div>
+          </div>
+        </div>
+      </div>
+      <div class="coverage-map">
+        <svg viewBox="0 0 400 548" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="mapaCobertura">
+          <title id="mapaCobertura">Mapa de Colombia con Medellín señalada como base de operaciones de TecOper</title>
+          <path class="map-shape" d="M123.5 408.0L110.0 400.6L94.6 390.2L85.7 395.2L59.1 390.8L51.5 377.3L45.6 377.8L14.3 359.9L10.0 350.2L21.7 347.8L20.3 332.1L27.7 320.7L43.2 318.6L56.4 298.9L68.4 282.4L56.9 274.9L62.8 256.6L55.7 227.8L62.4 219.6L57.5 192.9L44.8 176.0L48.8 160.7L58.9 162.9L64.8 153.5L57.6 134.8L61.4 130.2L77.6 131.2L101.1 109.0L114.0 105.7L114.3 95.1L120.1 68.2L138.1 53.4L157.9 52.8L160.4 46.1L184.9 48.8L209.6 32.6L221.8 25.5L237.0 10.0L248.1 12.0L256.3 20.4L250.3 31.2L230.1 36.6L222.1 52.6L210.0 61.7L200.9 73.6L197.1 96.3L188.4 114.9L204.5 117.0L208.6 131.6L215.5 138.6L218.0 151.4L214.2 163.1L215.3 169.7L223.1 172.3L230.5 183.4L270.9 180.3L289.1 184.4L311.2 211.5L323.8 208.2L346.4 209.8L364.3 206.2L375.4 211.7L369.8 228.6L362.8 239.2L360.3 261.8L366.6 282.7L375.5 292.0L376.6 299.1L360.7 314.7L372.1 321.6L380.4 332.6L390.0 363.9L384.1 367.8L378.0 349.3L369.3 339.3L358.9 350.1L297.8 349.4L298.1 369.1L316.5 372.3L315.5 384.3L309.2 381.1L291.5 386.2L291.4 409.0L305.3 420.5L310.2 438.4L309.5 452.0L295.4 538.2L279.7 521.5L270.3 520.7L290.5 488.7L266.5 474.0L247.7 476.7L236.4 471.3L219.1 479.6L195.7 475.7L177.2 442.8L162.7 434.7L152.7 419.9L131.8 405.0L123.5 408.0Z"/>
+          <circle class="map-ring" cx="117" cy="207" r="22"/>
+          <circle class="map-base" cx="117" cy="207" r="11"/>
+          <text class="map-lbl" x="139" y="214">Medellín</text>
+        </svg>
       </div>
     </div>
   </div>
@@ -722,7 +785,8 @@ footer p{font-size:13px;color:rgba(255,255,255,.55);}
   var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var CHILDREN='.section-tag,.section-title,.section-sub,.problem-card,.service-card,'+
                '.diff-item,.diff-quote,.video-frame,.faq-list details,.stats-inner>div,'+
-               '.contact-form-card,:scope>h2,:scope>p,:scope>.cta-btns,:scope>.trust-badges';
+               '.contact-form-card,.fact,.coverage-map,'+
+               ':scope>h2,:scope>p,:scope>.cta-btns,:scope>.trust-badges';
   var blocks=document.querySelectorAll('.rv');
   var steps=document.querySelector('.process-steps');
 
