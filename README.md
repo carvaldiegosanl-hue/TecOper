@@ -2,7 +2,7 @@
 
 Sitio web de **TecOper** — ingeniería y automatización eléctrica e industrial y consultoría en transformación digital en Colombia.
 
-Página web estática (HTML + CSS + un poco de JS, sin build). Tipografías Jost, Figtree e IBM Plex Mono autoalojadas en `fonts/` (SIL OFL 1.1). El banner principal muestra el portafolio en tarjetas 3D hechas solo con CSS (`preserve-3d`) que giran siguiendo el puntero. El formulario de contacto usa [Formspree](https://formspree.io/) y los botones de contacto abren WhatsApp.
+Página web estática (HTML + CSS + un poco de JS, sin build). Tipografías Jost, Figtree e IBM Plex Mono autoalojadas en `fonts/` (SIL OFL 1.1). El banner principal muestra el portafolio en tarjetas 3D hechas solo con CSS (`preserve-3d`) que giran siguiendo el puntero. El formulario de contacto envía directo a tecoper.admon@gmail.com con [FormSubmit](https://formsubmit.co/) (el primer envío requiere activar el correo una vez) y los botones de contacto abren WhatsApp.
 
 ## Servicios
 
