@@ -135,7 +135,8 @@ body{font-family:var(--body);color:var(--text);background:var(--bg);line-height:
   *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important;}
   .js .hero-seq>*,.js .wa-float,.js .rv *{opacity:1!important;transform:none!important;}
   .js .process-steps::before{transform:scaleX(1)!important;}
-  .js .hero-stage,.js .pcard-in,.js .stage-chip{animation:none!important;}
+  .js .hero-stage,.js .pcard-in,.js .stage-chip,.js .chip-c .led,.pain-hint.is-auto::before{animation:none!important;}
+  .js .vs svg path{stroke-dashoffset:0!important;}
 }
 /* Al imprimir no hay scroll que dispare el observador: sin esto, todo lo
    que no se hubiera revelado saldria en blanco. */
@@ -355,16 +356,14 @@ section{padding:80px 24px;}
   .process-steps::before{content:'';position:absolute;top:56px;left:12.5%;right:12.5%;height:2px;background:rgba(255,255,255,.14);z-index:0;}
   /* La linea se traza de izquierda a derecha: los cuatro pasos son una
      secuencia real, asi que el movimiento comunica el orden de lectura. */
-  .js .process-steps::before{transform:scaleX(0);transform-origin:left center;transition:transform .9s var(--ease) .1s;}
-  .js .process-steps.is-visible::before{transform:scaleX(1);}
 }
 .step{position:relative;z-index:1;text-align:center;padding:30px 20px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);transition:background .2s var(--ease),transform .2s var(--ease);}
 .step:hover{background:rgba(255,255,255,.08);transform:translateY(-3px);}
-.js .process-steps .step{opacity:0;transform:translateY(18px);transition:opacity .55s var(--ease),transform .55s var(--ease),background .2s var(--ease);transition-delay:var(--d,0ms);}
+.js .process-steps .step{opacity:0;transform:translateY(18px);transition:opacity .55s var(--ease),transform .55s var(--ease),background .4s var(--ease),border-color .4s var(--ease);transition-delay:var(--d,0ms);}
 .js .process-steps.is-visible .step{opacity:1;transform:none;}
 .js .process-steps.is-visible .step:hover{transform:translateY(-3px);}
 .step-num{width:52px;height:52px;border-radius:50%;background:var(--accent);color:#fff;font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:16px;font-weight:600;letter-spacing:.02em;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
-.js .process-steps .step-num{opacity:0;transform:scale(.55);transition:opacity .4s var(--ease),transform .5s cubic-bezier(.34,1.56,.64,1);transition-delay:calc(var(--d,0ms) + 160ms);}
+.js .process-steps .step-num{opacity:0;transform:scale(.55);transition:opacity .4s var(--ease),transform .5s cubic-bezier(.34,1.56,.64,1),background .4s var(--ease),color .4s var(--ease),box-shadow .4s var(--ease);transition-delay:calc(var(--d,0ms) + 160ms),calc(var(--d,0ms) + 160ms),0s,0s,0s;}
 .js .process-steps.is-visible .step-num{opacity:1;transform:none;}
 .step h3{font-size:16px;font-weight:700;letter-spacing:-.2px;margin:0;}
 
@@ -488,6 +487,50 @@ footer p{font-size:13px;color:rgba(255,255,255,.55);}
 .footer-social svg{width:18px;height:18px;fill:rgba(255,255,255,.6);}
 .footer-social a:hover svg{fill:#fff;}
 
+/* MOVIMIENTO VIVO
+   Lo que hace que la pagina "respire": se mueve sola (tarjetas en
+   autoplay, chip en vivo, cifras que cuentan) y reacciona al scroll
+   (barra de progreso, proceso que se ilumina, comparativo que se dibuja).
+   Todo se apaga con prefers-reduced-motion. */
+
+/* Barra de progreso de lectura bajo el menu */
+nav::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent-light));transform:scaleX(var(--sp,0));transform-origin:left center;box-shadow:0 0 10px rgba(255,82,82,.55);}
+
+/* Chip "en vivo" del hero: LED que parpadea y lectura que cambia */
+.chip-c{right:34px;bottom:-34px;transform:translateZ(150px);font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;}
+.chip-c b{color:#15803d;font-variant-numeric:tabular-nums;min-width:6.2ch;display:inline-block;}
+.chip-c .led{width:8px;height:8px;border-radius:50%;background:#4ade80;box-shadow:0 0 10px #4ade80;}
+.js .chip-c .led{animation:blink 1.4s steps(2,jump-none) infinite;}
+.js .chip-c{animation-delay:-1.5s;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.25;}}
+
+/* Cifras que cuentan */
+.count{font-weight:inherit;font-variant-numeric:tabular-nums;}
+
+/* Tarjetas de problema en autoplay: la que esta "al aire" se marca */
+.pain.is-auto .pain-back{box-shadow:0 0 0 2px rgba(255,82,82,.55),0 18px 40px rgba(11,29,58,.28);}
+.pain-hint.is-auto::before{animation:blink 1.2s steps(2,jump-none) infinite;}
+
+/* Comparativo: las X y los check se dibujan fila por fila */
+.js .vs svg path{stroke-dasharray:24;stroke-dashoffset:24;transition:stroke-dashoffset .55s var(--ease);transition-delay:calc(var(--d,0ms) + 380ms);}
+.js .vs .vs-good svg path{transition-delay:calc(var(--d,0ms) + 620ms);}
+.js .rv.is-visible .vs svg path{stroke-dashoffset:0;}
+
+/* Secciones oscuras: cuadricula tecnica + resplandor que sigue al cursor */
+.fx-grid{background-image:repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0 1px,transparent 1px 46px),repeating-linear-gradient(90deg,rgba(255,255,255,.035) 0 1px,transparent 1px 46px);position:relative;overflow:hidden;}
+.fx-grid::after{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(460px circle at var(--mx,50%) var(--my,50%),rgba(226,35,26,.17),transparent 62%);opacity:0;transition:opacity .45s var(--ease);}
+.fx-grid.is-hot::after{opacity:1;}
+.fx-grid>.section-inner{position:relative;z-index:1;}
+
+/* Proceso guiado por el scroll: la linea roja se llena al bajar y cada
+   paso se enciende cuando la linea lo alcanza */
+@media(min-width:601px){
+  .process-steps::after{content:'';position:absolute;top:56px;left:12.5%;right:12.5%;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent-light));box-shadow:0 0 12px rgba(255,82,82,.6);transform:scaleX(var(--p,1));transform-origin:left center;z-index:0;}
+}
+.js .process-steps .step.on{background:rgba(226,35,26,.10);border-color:rgba(255,82,82,.45);}
+.js .process-steps.is-visible .step:not(.on) .step-num{background:rgba(255,255,255,.12);color:rgba(255,255,255,.6);}
+.js .process-steps .step.on .step-num{box-shadow:0 0 0 6px rgba(226,35,26,.18),0 0 26px rgba(255,82,82,.55);}
+
 /* RESPONSIVE */
 @media(max-width:980px){
   .nav-inner{max-width:100%;}
@@ -533,6 +576,7 @@ footer p{font-size:13px;color:rgba(255,255,255,.55);}
   .chip-a{display:none;}
   .stage-chip{font-size:11px;padding:7px 11px;}
   .chip-b{right:4px;top:8px;}
+  .chip-c{display:none;}
   .hero p{font-size:16px;}
   .hero-btns{flex-direction:column;}
   .hero-btns a{width:100%;text-align:center;}
@@ -609,6 +653,7 @@ footer p{font-size:13px;color:rgba(255,255,255,.55);}
         </a>
         <div class="stage-chip chip-a" aria-hidden="true"><i></i>Siemens · Omron · <b>Schneider</b></div>
         <div class="stage-chip chip-b" aria-hidden="true">⚡ Cotización en <b>24h</b></div>
+        <div class="stage-chip chip-c" aria-hidden="true"><span class="led"></span>RUN · Motor M1 · <b id="liveTemp">41.2 °C</b></div>
         <div class="stage-floor" aria-hidden="true"></div>
       </div>
     </div>
@@ -617,10 +662,10 @@ footer p{font-size:13px;color:rgba(255,255,255,.55);}
 
 <div class="stats rv">
   <div class="stats-inner">
-    <div><div class="stat-num">24<span>h</span></div><div class="stat-lbl">Cotización formal</div></div>
+    <div><div class="stat-num"><b class="count" data-to="24">24</b><span>h</span></div><div class="stat-lbl">Cotización formal</div></div>
     <div><div class="stat-num"><span>$</span>0</div><div class="stat-lbl">Costo del diagnóstico</div></div>
-    <div><div class="stat-num">100<span>%</span></div><div class="stat-lbl">Trazabilidad digital</div></div>
-    <div><div class="stat-num">32</div><div class="stat-lbl">Departamentos con cobertura</div></div>
+    <div><div class="stat-num"><b class="count" data-to="100">100</b><span>%</span></div><div class="stat-lbl">Trazabilidad digital</div></div>
+    <div><div class="stat-num"><b class="count" data-to="32">32</b></div><div class="stat-lbl">Departamentos con cobertura</div></div>
   </div>
 </div>
 
@@ -743,7 +788,7 @@ footer p{font-size:13px;color:rgba(255,255,255,.55);}
   </div>
 </section>
 
-<section class="difference rv" id="diferencia">
+<section class="difference fx-grid rv" id="diferencia">
   <div class="section-inner">
     <div class="section-tag">La diferencia</div>
     <h2 class="section-title">Intervienes cuando es barato, no cuando es urgente.</h2>
@@ -838,7 +883,7 @@ footer p{font-size:13px;color:rgba(255,255,255,.55);}
   </div>
 </section>
 
-<section class="process rv" id="proceso">
+<section class="process fx-grid rv" id="proceso">
   <div class="section-inner">
     <div class="section-tag">Proceso</div>
     <h2 class="section-title">Primero diagnosticamos. Después intervenimos.</h2>
@@ -1014,7 +1059,15 @@ footer p{font-size:13px;color:rgba(255,255,255,.55);}
     });
   }
 
-  /* Barra superior: se compacta y gana sombra al bajar */
+  /* Barra superior: se compacta, gana sombra y muestra el progreso de
+     lectura. El mismo pase de scroll guia la linea del Proceso. */
+  var reduceGlobal=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fineGlobal=window.matchMedia&&window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+  var procSteps=document.querySelector('.process-steps');
+  if(procSteps&&reduceGlobal){
+    procSteps.style.setProperty('--p','1');
+    Array.prototype.forEach.call(procSteps.children,function(st){st.classList.add('on');});
+  }
   var navEl=document.querySelector('nav'),ticking=false;
   if(navEl){
     var onScroll=function(){
@@ -1022,10 +1075,21 @@ footer p{font-size:13px;color:rgba(255,255,255,.55);}
       ticking=true;
       requestAnimationFrame(function(){
         navEl.classList.toggle('scrolled',window.scrollY>40);
+        var max=document.documentElement.scrollHeight-window.innerHeight;
+        navEl.style.setProperty('--sp',max>0?(window.scrollY/max).toFixed(4):0);
+        if(procSteps&&!reduceGlobal){
+          var r=procSteps.getBoundingClientRect(),vh=window.innerHeight;
+          var p=Math.max(0,Math.min(1,(vh*.82-r.top)/(vh*.42)));
+          procSteps.style.setProperty('--p',p.toFixed(3));
+          Array.prototype.forEach.call(procSteps.children,function(st,i){
+            st.classList.toggle('on',p>0.02&&p>=i/(procSteps.children.length-1)-0.001);
+          });
+        }
         ticking=false;
       });
     };
     window.addEventListener('scroll',onScroll,{passive:true});
+    window.addEventListener('resize',onScroll);
     onScroll();
   }
 
@@ -1100,12 +1164,84 @@ footer p{font-size:13px;color:rgba(255,255,255,.55);}
     hero.addEventListener('pointerleave',function(){tx=BASE_X;ty=BASE_Y;kick();});
   }
 
-  /* Tarjetas de problema: clic/tecla gira la tarjeta */
-  Array.prototype.forEach.call(document.querySelectorAll('.pain'),function(p){
+  /* Tarjetas de problema: giran solas en secuencia mientras estan en
+     pantalla; el primer toque del visitante apaga el autoplay. */
+  var pains=document.querySelectorAll('.pain');
+  var painGrid=document.querySelector('.pain-grid');
+  var painHint=document.querySelector('.pain-hint');
+  var autoTimer=null,autoIdx=-1,autoOn=false;
+  var setFlip=function(p,on){p.setAttribute('aria-expanded',on?'true':'false');};
+  var stopAuto=function(){
+    if(!autoOn)return;
+    autoOn=false;clearInterval(autoTimer);autoTimer=null;
+    Array.prototype.forEach.call(pains,function(p){p.classList.remove('is-auto');setFlip(p,false);});
+    if(painHint){painHint.classList.remove('is-auto');painHint.textContent='Toca una tarjeta para ver cómo lo resolvemos';}
+  };
+  var tick=function(){
+    if(autoIdx>=0){setFlip(pains[autoIdx],false);pains[autoIdx].classList.remove('is-auto');}
+    autoIdx=(autoIdx+1)%pains.length;
+    setFlip(pains[autoIdx],true);pains[autoIdx].classList.add('is-auto');
+  };
+  Array.prototype.forEach.call(pains,function(p){
     p.addEventListener('click',function(){
-      p.setAttribute('aria-expanded',p.getAttribute('aria-expanded')==='true'?'false':'true');
+      var wasOpen=p.getAttribute('aria-expanded')==='true'&&!p.classList.contains('is-auto');
+      stopAuto();
+      setFlip(p,!wasOpen);
     });
   });
+  if(!reduce&&painGrid&&pains.length&&'IntersectionObserver' in window){
+    autoOn=true;
+    if(painHint){painHint.classList.add('is-auto');painHint.textContent='Pasando solas · toca una para tomar el control';}
+    new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!autoOn)return;
+        if(e.isIntersecting&&!autoTimer){tick();autoTimer=setInterval(tick,2600);}
+        else if(!e.isIntersecting&&autoTimer){clearInterval(autoTimer);autoTimer=null;}
+      });
+    },{threshold:.35}).observe(painGrid);
+  }
+
+  /* Cifras que cuentan desde cero al aparecer */
+  var counts=document.querySelectorAll('.count');
+  if(!reduce&&counts.length&&'IntersectionObserver' in window){
+    Array.prototype.forEach.call(counts,function(c){c.textContent='0';});
+    new IntersectionObserver(function(es,obs){
+      es.forEach(function(e){
+        if(!e.isIntersecting)return;
+        obs.disconnect();
+        var t0=performance.now(),D=1400;
+        var step=function(t){
+          var k=Math.min(1,(t-t0)/D),ease=1-Math.pow(1-k,3);
+          Array.prototype.forEach.call(counts,function(c){c.textContent=Math.round(+c.dataset.to*ease);});
+          if(k<1)requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      });
+    },{threshold:.6}).observe(document.querySelector('.stats'));
+  }
+
+  /* Chip en vivo: lectura que oscila como un sensor real */
+  var liveTemp=document.getElementById('liveTemp');
+  if(liveTemp&&!reduce){
+    var tv=41.2;
+    setInterval(function(){
+      tv=Math.max(40.4,Math.min(42.6,tv+(Math.random()-.5)*.6));
+      liveTemp.textContent=tv.toFixed(1)+' °C';
+    },1500);
+  }
+
+  /* Resplandor que sigue al cursor en las secciones oscuras */
+  if(fineGlobal&&!reduce){
+    Array.prototype.forEach.call(document.querySelectorAll('.fx-grid'),function(sec){
+      sec.addEventListener('pointermove',function(e){
+        var r=sec.getBoundingClientRect();
+        sec.style.setProperty('--mx',(e.clientX-r.left)+'px');
+        sec.style.setProperty('--my',(e.clientY-r.top)+'px');
+        sec.classList.add('is-hot');
+      });
+      sec.addEventListener('pointerleave',function(){sec.classList.remove('is-hot');});
+    });
+  }
 
   var yearEl=document.getElementById('year');
   if(yearEl)yearEl.textContent=new Date().getFullYear();
