@@ -139,14 +139,7 @@ body{font-family:var(--body);color:var(--text);background:var(--bg);line-height:
 /* backwards y no both: al terminar, la animacion deja de mandar sobre
    el transform y los :hover vuelven a funcionar. */
 .js .hero-seq>*{animation:rise .7s var(--ease) backwards;animation-delay:var(--d,0ms);}
-@media(prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto;}
-  *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important;}
-  .js .hero-seq>*,.js .wa-float,.js .rv *{opacity:1!important;transform:none!important;}
-  .js .process-steps::before{transform:scaleX(1)!important;}
-  .js .hero-stage,.js .pcard-in,.js .stage-chip,.js .chip-c .led,.pain-hint.is-auto::before{animation:none!important;}
-  .js .vs svg path{stroke-dashoffset:0!important;}
-}
+
 /* Al imprimir no hay scroll que dispare el observador: sin esto, todo lo
    que no se hubiera revelado saldria en blanco. */
 @media print{
@@ -500,7 +493,7 @@ footer p{font-size:13px;color:rgba(255,255,255,.55);}
    Lo que hace que la pagina "respire": se mueve sola (tarjetas en
    autoplay, chip en vivo, cifras que cuentan) y reacciona al scroll
    (barra de progreso, proceso que se ilumina, comparativo que se dibuja).
-   Todo se apaga con prefers-reduced-motion. */
+   Se muestra siempre, tambien con "reducir movimiento" activo. */
 
 /* Barra de progreso de lectura bajo el menu */
 nav::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent-light));transform:scaleX(var(--sp,0));transform-origin:left center;box-shadow:0 0 10px rgba(255,82,82,.55);}
@@ -1094,7 +1087,7 @@ nav::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:2px;ba
 
   /* Barra superior: se compacta, gana sombra y muestra el progreso de
      lectura. El mismo pase de scroll guia la linea del Proceso. */
-  var reduceGlobal=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var reduceGlobal=false;
   var fineGlobal=window.matchMedia&&window.matchMedia('(hover:hover) and (pointer:fine)').matches;
   var procSteps=document.querySelector('.process-steps');
   if(procSteps&&reduceGlobal){
@@ -1130,7 +1123,7 @@ nav::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:2px;ba
      El CSS ya dejo los elementos ocultos; aqui solo se reparte el retardo
      y se marca el bloque como visible. Con reduced-motion no se observa
      nada: la hoja de estilos los deja visibles de entrada. */
-  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var reduce=false; /* el movimiento se muestra siempre, aunque el dispositivo pida reducirlo */
   var CHILDREN='.section-tag,.section-title,.section-sub,.pain-hint,.pain-cta,.service-card,'+
                '.pain,.vs-row,.video-frame,.faq-list details,.stats-inner>div,'+
                '.contact-form-card,.fact,.coverage-map,.case-card,.field-tile,'+
