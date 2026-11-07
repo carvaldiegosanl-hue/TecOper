@@ -109,7 +109,7 @@ body{font-family:var(--body);color:var(--text);background:var(--bg);line-height:
    (aplica antes del primer pintado, sin parpadeo); el JS solo reparte el
    retardo --d y marca .is-visible cuando el bloque entra en pantalla. */
 .js .rv .section-tag,.js .rv .section-title,.js .rv .section-sub,
-.js .rv .problem-card,.js .rv .service-card,.js .rv .diff-item,
+.js .rv .pain,.js .rv .pain-hint,.js .rv .pain-cta,.js .rv .service-card,.js .rv .vs-row,
 .js .rv .diff-quote,.js .rv .video-frame,.js .rv .faq-list details,
 .js .rv .stats-inner>div,.js .rv>h2,.js .rv>p,.js .rv>.cta-btns,
 .js .rv>.trust-badges,.js .rv .contact-form-card,
@@ -119,7 +119,7 @@ body{font-family:var(--body);color:var(--text);background:var(--bg);line-height:
   transition-delay:var(--d,0ms);
 }
 .js .rv.is-visible .section-tag,.js .rv.is-visible .section-title,.js .rv.is-visible .section-sub,
-.js .rv.is-visible .problem-card,.js .rv.is-visible .service-card,.js .rv.is-visible .diff-item,
+.js .rv.is-visible .pain,.js .rv.is-visible .pain-hint,.js .rv.is-visible .pain-cta,.js .rv.is-visible .service-card,.js .rv.is-visible .vs-row,
 .js .rv.is-visible .diff-quote,.js .rv.is-visible .video-frame,.js .rv.is-visible .faq-list details,
 .js .rv.is-visible .stats-inner>div,.js .rv.is-visible>h2,.js .rv.is-visible>p,.js .rv.is-visible>.cta-btns,
 .js .rv.is-visible>.trust-badges,.js .rv.is-visible .contact-form-card,
@@ -127,7 +127,6 @@ body{font-family:var(--body);color:var(--text);background:var(--bg);line-height:
 /* Las reglas de revelado son mas especificas que los :hover originales,
    asi que hay que devolverles la prioridad. */
 .js .rv.is-visible .service-card:hover{transform:translateY(-4px);}
-.js .rv.is-visible .problem-card:hover{transform:translateY(-3px);}
 /* backwards y no both: al terminar, la animacion deja de mandar sobre
    el transform y los :hover vuelven a funcionar. */
 .js .hero-seq>*{animation:rise .7s var(--ease) backwards;animation-delay:var(--d,0ms);}
@@ -250,15 +249,42 @@ section{padding:80px 24px;}
 .section-title+div{margin-top:34px;}
 .section-sub{font-size:16px;color:var(--text2);max-width:600px;line-height:1.7;margin-bottom:48px;}
 
-/* PROBLEM */
+/* ENCUENTRA TU PROBLEMA
+   Tarjetas que giran en 3D (misma idea del hero): al frente el dolor,
+   atras la solucion. Las dos caras comparten celda de grid, asi la
+   tarjeta mide lo que mida la cara mas alta y nada se corta. */
 .problem{background:var(--bg2);}
-.problem-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;}
-.problem-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:28px;transition:transform .2s;}
-.problem-card:hover{transform:translateY(-3px);}
-.problem-icon{width:30px;height:30px;color:var(--accent);margin-bottom:14px;}
-.problem-icon svg{display:block;width:100%;height:100%;}
-.problem-card h3{font-size:16px;font-weight:700;color:var(--text);margin-bottom:8px;}
-.problem-card p{font-size:14px;color:var(--text2);line-height:1.6;}
+.pain-hint{font-family:var(--mono);font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text2);margin-top:-2px;}
+.pain-hint::before{content:'';display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--accent);margin-right:8px;vertical-align:1px;box-shadow:0 0 0 4px var(--accent-glow);}
+.section-title+.pain-hint+div{margin-top:28px;}
+.pain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.pain{display:block;width:100%;padding:0;border:0;background:none;font:inherit;color:inherit;text-align:left;cursor:pointer;perspective:1300px;-webkit-tap-highlight-color:transparent;}
+.pain-inner{display:grid;transform-style:preserve-3d;transition:transform .7s var(--ease);}
+.pain[aria-expanded="true"] .pain-inner{transform:rotateY(180deg);}
+.pain-face{grid-area:1/1;display:flex;flex-direction:column;min-height:258px;padding:24px;border-radius:var(--radius-lg);backface-visibility:hidden;-webkit-backface-visibility:hidden;}
+.pain-front{background:var(--bg);border:1px solid var(--border);transition:border-color .25s var(--ease),box-shadow .25s var(--ease);}
+.pain:hover .pain-front{border-color:var(--accent);box-shadow:0 14px 34px rgba(226,35,26,.12);}
+.pain-back{transform:rotateY(180deg);background:linear-gradient(160deg,var(--primary-light) 0%,var(--primary) 100%);color:#fff;border:1px solid rgba(255,82,82,.4);box-shadow:0 18px 40px rgba(11,29,58,.28);}
+.pain-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+.pain-num{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--accent-ink);background:var(--accent-glow);padding:4px 10px;border-radius:8px;}
+.pain-icon{width:28px;height:28px;color:var(--accent);}
+.pain-icon svg{display:block;width:100%;height:100%;}
+.pain-title{display:block;font-family:var(--display);font-size:20px;font-weight:700;line-height:1.2;color:var(--primary);margin-bottom:14px;letter-spacing:-.01em;}
+.pain-label{display:block;font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--text3);margin-bottom:4px;}
+.pain-back .pain-label{color:var(--accent-light);}
+.pain-back .pain-label+.pain-text{margin-bottom:16px;}
+.pain-text{display:block;font-size:14.5px;line-height:1.55;color:var(--text2);}
+.pain-back .pain-text{color:rgba(255,255,255,.82);}
+.pain-expect{display:block;font-family:var(--display);font-size:18px;font-weight:700;line-height:1.25;color:#fff;}
+.pain-more{display:inline-flex;align-items:center;gap:6px;margin-top:auto;padding-top:18px;font-size:13px;font-weight:700;color:var(--accent);}
+.pain-back .pain-more{color:rgba(255,255,255,.7);}
+.pain-more svg{width:14px;height:14px;transition:transform .25s var(--ease);}
+.pain:hover .pain-more svg{transform:translateX(4px);}
+.pain-cta{display:inline-flex;align-items:center;gap:8px;margin-top:28px;font-weight:700;font-size:15px;color:var(--primary);text-decoration:none;border-bottom:2px solid var(--accent);padding-bottom:3px;}
+.pain-cta svg{width:15px;height:15px;color:var(--accent);transition:transform .25s var(--ease);}
+.pain-cta:hover svg{transform:translateX(4px);}
+@media(max-width:900px){.pain-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.pain-grid{grid-template-columns:1fr;}.pain-face{min-height:0;}}
 
 /* SERVICES */
 .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;}
@@ -350,11 +376,35 @@ section{padding:80px 24px;}
 .difference .section-tag{background:rgba(255,82,82,.15);color:var(--accent-light);}
 .difference .section-title{color:#fff;}
 .difference .section-sub{color:rgba(255,255,255,.55);}
-.diff-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;}
-.diff-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:var(--radius);padding:24px;}
-.diff-item h4{font-size:16px;font-weight:700;margin-bottom:7px;color:#fff;}
-.diff-item h4 span{color:var(--accent-light);}
-.diff-item p{font-size:14px;color:rgba(255,255,255,.6);line-height:1.6;}
+/* Comparativo: tres columnas (aspecto / proveedor tipico / TecOper).
+   Las celdas de cada columna forman un panel continuo; en celular cada
+   fila pasa a ser una tarjeta. */
+.vs{display:grid;}
+.vs-row{display:grid;grid-template-columns:.75fr 1fr 1fr;column-gap:18px;}
+.vs-row>span{padding:16px 22px;font-size:14.5px;line-height:1.5;}
+.vs-label{font-weight:700;color:#fff;padding-left:0!important;align-self:center;}
+.vs-bad,.vs-good{display:flex;gap:12px;align-items:flex-start;}
+.vs-bad{background:rgba(255,255,255,.03);color:rgba(255,255,255,.55);border-left:1px solid rgba(255,255,255,.08);border-right:1px solid rgba(255,255,255,.08);}
+.vs-good{background:rgba(226,35,26,.08);color:#fff;border-left:1px solid rgba(255,82,82,.55);border-right:1px solid rgba(255,82,82,.55);}
+.vs-row+.vs-row>.vs-bad,.vs-row+.vs-row>.vs-good{border-top:1px solid rgba(255,255,255,.06);}
+.vs-head>span{font-family:var(--mono);font-size:11.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;padding-top:20px;padding-bottom:12px;}
+.vs-head .vs-bad{border-top:1px solid rgba(255,255,255,.08);border-radius:var(--radius-lg) var(--radius-lg) 0 0;}
+.vs-head .vs-good{color:var(--accent-light);border-top:1px solid rgba(255,82,82,.55);border-radius:var(--radius-lg) var(--radius-lg) 0 0;}
+.vs-row:last-child .vs-bad{border-bottom:1px solid rgba(255,255,255,.08);border-radius:0 0 var(--radius-lg) var(--radius-lg);padding-bottom:22px;}
+.vs-row:last-child .vs-good{border-bottom:1px solid rgba(255,82,82,.55);border-radius:0 0 var(--radius-lg) var(--radius-lg);padding-bottom:22px;box-shadow:0 30px 60px -30px rgba(226,35,26,.5);}
+.vs svg{flex-shrink:0;width:16px;height:16px;margin-top:3px;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}
+.vs-bad svg{stroke:rgba(255,255,255,.35);}
+.vs-good svg{stroke:#4ade80;}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+@media(max-width:700px){
+  .vs{gap:12px;}
+  .vs-head{display:none;}
+  .vs-row{grid-template-columns:1fr;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:var(--radius);overflow:hidden;}
+  .vs-row>span{border:0!important;border-radius:0!important;box-shadow:none!important;padding:12px 18px!important;}
+  .vs-label{padding-top:16px!important;font-family:var(--mono);font-size:11.5px!important;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-light);}
+  .vs-bad{background:transparent;}
+  .vs-good{padding-bottom:16px!important;}
+}
 
 /* COBERTURA
    Mapa embebido de Google Maps con carga diferida (loading="lazy"). */
@@ -403,6 +453,7 @@ section{padding:80px 24px;}
 .cta-phone{margin-top:18px;font-size:14px;color:rgba(255,255,255,.55);}
 .cta-phone a{color:#fff;font-family:var(--mono);font-variant-numeric:tabular-nums;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.3);padding-bottom:1px;transition:border-color .2s;}
 .cta-phone a:hover{border-color:#fff;}
+.cta-section .cta-note{font-family:var(--mono);font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.45);margin:14px auto 0;}
 .contact-form-card{max-width:520px;margin:40px auto 0;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius-lg);padding:32px;text-align:left;}
 .form-row{display:flex;gap:12px;}
 /* Etiqueta visible por campo: con solo placeholder, el nombre del campo
@@ -416,7 +467,7 @@ section{padding:80px 24px;}
 #contactForm select option{color:#0f172a;}
 #contactForm input:focus,#contactForm select:focus,#contactForm textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(226,35,26,.25);}
 #contactForm textarea{resize:vertical;min-height:90px;}
-#contactForm button{width:100%;background:var(--accent);color:#fff;border:none;padding:14px;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;transition:background .2s;}
+#contactForm button{width:100%;font-family:inherit;background:var(--accent);color:#fff;border:none;padding:14px;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;transition:background .2s;}
 #contactForm button:hover{background:var(--accent-light);}
 #contactForm button:disabled{opacity:.6;cursor:default;}
 .form-msg{margin-top:10px;font-size:13px;text-align:center;min-height:18px;}
@@ -575,45 +626,134 @@ footer p{font-size:13px;color:rgba(255,255,255,.55);}
 
 <section class="problem rv" id="problema">
   <div class="section-inner">
-    <div class="section-tag">El problema</div>
-    <h2 class="section-title">Lo que no se ve venir, es lo que más cuesta</h2>
-    <div class="problem-grid">
-      <div class="problem-card">
-        <div class="problem-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2.2 20.5h19.6L12 3Z"/><path d="M12 10v4.2"/><path d="M12 17.6v.4"/></svg></div>
-        <h3>Paradas que no viste venir</h3>
-        <p>Un motor da señales y nadie las ve. Cuando falla, la reparación de urgencia cuesta el triple.</p>
-      </div>
-      <div class="problem-card">
-        <div class="problem-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg></div>
-        <h3>Procesos manuales que frenan tu empresa</h3>
-        <p>Cuadernos, chats y hojas sueltas: nadie sabe dónde va cada cosa ni cuánto cuesta.</p>
-      </div>
-      <div class="problem-card">
-        <div class="problem-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V4M4 20h16M8 16l3.5-4 3 2.5L20 8"/></svg></div>
-        <h3>Decisiones a ciegas en tu operación</h3>
-        <p>Sin datos claros no sabes qué funciona ni dónde se te va la plata.</p>
-      </div>
+    <div class="section-tag">Encuentra tu problema</div>
+    <h2 class="section-title">¿Cuál de estos te está pasando?</h2>
+    <p class="pain-hint">Toca una tarjeta para ver cómo lo resolvemos</p>
+    <div class="pain-grid">
+      <button type="button" class="pain" aria-expanded="false">
+        <span class="pain-inner">
+          <span class="pain-face pain-front">
+            <span class="pain-top"><span class="pain-num">01</span><span class="pain-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2.2 20.5h19.6L12 3Z"/><path d="M12 10v4.2"/><path d="M12 17.6v.4"/></svg></span></span>
+            <span class="pain-title">Paradas inesperadas</span>
+            <span class="pain-label">Lo que vives</span>
+            <span class="pain-text">El equipo se detiene sin aviso y la producción se frena.</span>
+            <span class="pain-more">Ver solución <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+          </span>
+          <span class="pain-face pain-back">
+            <span class="pain-label">Cómo lo resolvemos</span>
+            <span class="pain-text">Revisiones programadas que detectan recalentamiento, vibración y desgaste antes de la falla.</span>
+            <span class="pain-label">Qué puedes esperar</span>
+            <span class="pain-expect">Menos paradas no planeadas.</span>
+            <span class="pain-more">Volver</span>
+          </span>
+        </span>
+      </button>
+      <button type="button" class="pain" aria-expanded="false">
+        <span class="pain-inner">
+          <span class="pain-face pain-front">
+            <span class="pain-top"><span class="pain-num">02</span><span class="pain-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"/></svg></span></span>
+            <span class="pain-title">Tableros con señales de falla</span>
+            <span class="pain-label">Lo que vives</span>
+            <span class="pain-text">Breakers que se disparan, cables calientes, olor a quemado.</span>
+            <span class="pain-more">Ver solución <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+          </span>
+          <span class="pain-face pain-back">
+            <span class="pain-label">Cómo lo resolvemos</span>
+            <span class="pain-text">Revisión y corrección de tableros e instalaciones eléctricas, industriales y locativas.</span>
+            <span class="pain-label">Qué puedes esperar</span>
+            <span class="pain-expect">Instalaciones seguras y confiables.</span>
+            <span class="pain-more">Volver</span>
+          </span>
+        </span>
+      </button>
+      <button type="button" class="pain" aria-expanded="false">
+        <span class="pain-inner">
+          <span class="pain-face pain-front">
+            <span class="pain-top"><span class="pain-num">03</span><span class="pain-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="1.5"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/><path d="M10 10h4v4h-4z"/></svg></span></span>
+            <span class="pain-title">Máquina sin programa</span>
+            <span class="pain-label">Lo que vives</span>
+            <span class="pain-text">Nadie tiene el programa de la máquina y si el PLC falla, la línea para.</span>
+            <span class="pain-more">Ver solución <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+          </span>
+          <span class="pain-face pain-back">
+            <span class="pain-label">Cómo lo resolvemos</span>
+            <span class="pain-text">Respaldo, programación y puesta en marcha de PLC Siemens, Omron y Schneider, HMI y variadores.</span>
+            <span class="pain-label">Qué puedes esperar</span>
+            <span class="pain-expect">Tu máquina documentada y bajo control.</span>
+            <span class="pain-more">Volver</span>
+          </span>
+        </span>
+      </button>
+      <button type="button" class="pain" aria-expanded="false">
+        <span class="pain-inner">
+          <span class="pain-face pain-front">
+            <span class="pain-top"><span class="pain-num">04</span><span class="pain-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h12l4 4v12H4z"/><path d="M8 12h3l1.5-3 2 6 1.5-3H18"/></svg></span></span>
+            <span class="pain-title">Sin planos actualizados</span>
+            <span class="pain-label">Lo que vives</span>
+            <span class="pain-text">Cada intervención empieza adivinando qué cable va a dónde.</span>
+            <span class="pain-more">Ver solución <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+          </span>
+          <span class="pain-face pain-back">
+            <span class="pain-label">Cómo lo resolvemos</span>
+            <span class="pain-text">Levantamiento y diseño de planos eléctricos y de control en AutoCAD Electrical.</span>
+            <span class="pain-label">Qué puedes esperar</span>
+            <span class="pain-expect">Mantenimientos más rápidos y seguros.</span>
+            <span class="pain-more">Volver</span>
+          </span>
+        </span>
+      </button>
+      <button type="button" class="pain" aria-expanded="false">
+        <span class="pain-inner">
+          <span class="pain-face pain-front">
+            <span class="pain-top"><span class="pain-num">05</span><span class="pain-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l5 5v15H6z"/><path d="M14 2v6h6M9 13h8M9 17h5"/></svg></span></span>
+            <span class="pain-title">Todo en papel y Excel</span>
+            <span class="pain-label">Lo que vives</span>
+            <span class="pain-text">Cuadernos, chats y hojas sueltas: nadie sabe dónde va cada cosa.</span>
+            <span class="pain-more">Ver solución <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+          </span>
+          <span class="pain-face pain-back">
+            <span class="pain-label">Cómo lo resolvemos</span>
+            <span class="pain-text">Evaluamos tus procesos y te damos un plan de digitalización priorizado por impacto y costo.</span>
+            <span class="pain-label">Qué puedes esperar</span>
+            <span class="pain-expect">Información ordenada y a la mano.</span>
+            <span class="pain-more">Volver</span>
+          </span>
+        </span>
+      </button>
+      <button type="button" class="pain" aria-expanded="false">
+        <span class="pain-inner">
+          <span class="pain-face pain-front">
+            <span class="pain-top"><span class="pain-num">06</span><span class="pain-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V4M4 20h16M8 16l3.5-4 3 2.5L20 8"/></svg></span></span>
+            <span class="pain-title">Decisiones a ciegas</span>
+            <span class="pain-label">Lo que vives</span>
+            <span class="pain-text">No sabes qué funciona ni dónde se te va la plata.</span>
+            <span class="pain-more">Ver solución <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+          </span>
+          <span class="pain-face pain-back">
+            <span class="pain-label">Cómo lo resolvemos</span>
+            <span class="pain-text">Integración IoT para ver tu operación en datos, con acompañamiento en la implementación.</span>
+            <span class="pain-label">Qué puedes esperar</span>
+            <span class="pain-expect">Decisiones con números, no corazonadas.</span>
+            <span class="pain-more">Volver</span>
+          </span>
+        </span>
+      </button>
     </div>
+    <a href="#contacto" class="pain-cta">¿No ves tu caso? Cuéntanos qué pasa <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
   </div>
 </section>
 
 <section class="difference rv" id="diferencia">
   <div class="section-inner">
-    <div class="section-tag">La diferencia TecOper</div>
+    <div class="section-tag">La diferencia</div>
     <h2 class="section-title">Intervienes cuando es barato, no cuando es urgente.</h2>
-    <div class="diff-list">
-      <div class="diff-item">
-        <h4><span>Menos</span> paradas</h4>
-        <p>Detectamos las señales antes de que el equipo se detenga.</p>
-      </div>
-      <div class="diff-item">
-        <h4><span>Más</span> tranquilidad</h4>
-        <p>Tu operación bajo control, sin sorpresas.</p>
-      </div>
-      <div class="diff-item">
-        <h4><span>Mejores</span> decisiones</h4>
-        <p>Números claros, no corazonadas.</p>
-      </div>
+    <div class="vs" role="table" aria-label="Proveedor típico comparado con TecOper">
+        <div class="vs-row vs-head" aria-hidden="true"><span></span><span class="vs-bad">Proveedor típico</span><span class="vs-good">TecOper</span></div>
+        <div class="vs-row" role="row"><span class="vs-label" role="rowheader">Cuándo actúa</span><span class="vs-bad" role="cell"><span class="sr-only">Proveedor típico: </span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"/></svg>Llega cuando el equipo ya falló.</span><span class="vs-good" role="cell"><span class="sr-only">TecOper: </span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Revisiones programadas que detectan la falla antes.</span></div>
+        <div class="vs-row" role="row"><span class="vs-label" role="rowheader">Diagnóstico</span><span class="vs-bad" role="cell"><span class="sr-only">Proveedor típico: </span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"/></svg>Cobra la visita o cotiza sin ver el problema.</span><span class="vs-good" role="cell"><span class="sr-only">TecOper: </span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Diagnóstico sin costo antes de cotizar.</span></div>
+        <div class="vs-row" role="row"><span class="vs-label" role="rowheader">Cotización</span><span class="vs-bad" role="cell"><span class="sr-only">Proveedor típico: </span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"/></svg>Tarda días en responder.</span><span class="vs-good" role="cell"><span class="sr-only">TecOper: </span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Cotización formal en menos de 24 horas.</span></div>
+        <div class="vs-row" role="row"><span class="vs-label" role="rowheader">Evidencia</span><span class="vs-bad" role="cell"><span class="sr-only">Proveedor típico: </span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"/></svg>No queda registro de lo que se hizo.</span><span class="vs-good" role="cell"><span class="sr-only">TecOper: </span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Orden con técnico, fecha, evidencia y entrega firmada.</span></div>
+        <div class="vs-row" role="row"><span class="vs-label" role="rowheader">Después de entregar</span><span class="vs-bad" role="cell"><span class="sr-only">Proveedor típico: </span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"/></svg>Instala y se va.</span><span class="vs-good" role="cell"><span class="sr-only">TecOper: </span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5"/></svg>Monitoreo y mejora continua.</span></div>
     </div>
   </div>
 </section>
@@ -701,7 +841,7 @@ footer p{font-size:13px;color:rgba(255,255,255,.55);}
 <section class="process rv" id="proceso">
   <div class="section-inner">
     <div class="section-tag">Proceso</div>
-    <h2 class="section-title">Claro, rápido y sin letra menuda</h2>
+    <h2 class="section-title">Primero diagnosticamos. Después intervenimos.</h2>
     <div class="process-steps">
       <div class="step">
         <div class="step-num">01</div>
@@ -781,6 +921,7 @@ footer p{font-size:13px;color:rgba(255,255,255,.55);}
     </a>
   </div>
   <p class="cta-phone">O escríbenos al <a href="https://wa.me/573148319544?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20TecOper%20y%20necesito%20cotizar%20un%20servicio." target="_blank" rel="noopener">+57 314 831 9544</a></p>
+  <p class="cta-note">Sin spam · Sin compromiso · Respuesta en menos de 24 h</p>
   <div class="contact-form-card">
     <form action="https://formspree.io/f/mzblroje" method="POST" id="contactForm">
       <input type="hidden" name="_subject" value="Nuevo contacto desde la web - TecOper">
@@ -893,8 +1034,8 @@ footer p{font-size:13px;color:rgba(255,255,255,.55);}
      y se marca el bloque como visible. Con reduced-motion no se observa
      nada: la hoja de estilos los deja visibles de entrada. */
   var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var CHILDREN='.section-tag,.section-title,.section-sub,.problem-card,.service-card,'+
-               '.diff-item,.diff-quote,.video-frame,.faq-list details,.stats-inner>div,'+
+  var CHILDREN='.section-tag,.section-title,.section-sub,.pain-hint,.pain-cta,.service-card,'+
+               '.pain,.vs-row,.video-frame,.faq-list details,.stats-inner>div,'+
                '.contact-form-card,.fact,.coverage-map,.case-card,.field-tile,'+
                ':scope>h2,:scope>p,:scope>.cta-btns,:scope>.trust-badges';
   var blocks=document.querySelectorAll('.rv');
@@ -958,6 +1099,13 @@ footer p{font-size:13px;color:rgba(255,255,255,.55);}
     });
     hero.addEventListener('pointerleave',function(){tx=BASE_X;ty=BASE_Y;kick();});
   }
+
+  /* Tarjetas de problema: clic/tecla gira la tarjeta */
+  Array.prototype.forEach.call(document.querySelectorAll('.pain'),function(p){
+    p.addEventListener('click',function(){
+      p.setAttribute('aria-expanded',p.getAttribute('aria-expanded')==='true'?'false':'true');
+    });
+  });
 
   var yearEl=document.getElementById('year');
   if(yearEl)yearEl.textContent=new Date().getFullYear();
