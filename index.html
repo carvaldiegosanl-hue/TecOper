@@ -1318,6 +1318,16 @@ nav::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:2px;ba
   form.addEventListener('submit',function(e){
     e.preventDefault();
     var btn=form.querySelector('button[type="submit"]');
+    /* Respaldo: si el correo no se pudo enviar, el mensaje no se pierde.
+       Se arma con lo que la persona escribio y se ofrece por WhatsApp. */
+    var fallback=function(){
+      var g=function(n){var el=form.elements[n];return el&&el.value?el.value.trim():'';};
+      var txt='Hola TecOper, soy '+g('nombre')+(g('email')?' ('+g('email')+')':'')+(g('telefono')?', tel. '+g('telefono'):'')+'.'+
+              (g('servicio')?' Me interesa: '+g('servicio')+'.':'')+' '+g('mensaje');
+      var url='https://wa.me/573148319544?text='+encodeURIComponent(txt);
+      msg.className='form-msg error';
+      msg.innerHTML='No pudimos enviar el correo. <a href="'+url+'" target="_blank" rel="noopener" style="color:#fff;font-weight:700;text-decoration:underline">Envíalo por WhatsApp con un clic</a>; ya va escrito.';
+    };
     btn.disabled=true;
     btn.textContent='Enviando...';
     fetch(form.action.replace('formsubmit.co/','formsubmit.co/ajax/'),{method:'POST',headers:{'Accept':'application/json'},body:new FormData(form)})
@@ -1327,15 +1337,9 @@ nav::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:2px;ba
           msg.textContent='Gracias, tu mensaje fue enviado. Te contactaremos pronto.';
           msg.className='form-msg success';
           form.reset();
-        }else{
-          msg.textContent='Hubo un error. Por favor escríbenos por WhatsApp.';
-          msg.className='form-msg error';
-        }
+        }else{fallback();}
       })
-      .catch(function(){
-        msg.textContent='Hubo un error. Por favor escríbenos por WhatsApp.';
-        msg.className='form-msg error';
-      })
+      .catch(fallback)
       .finally(function(){
         btn.disabled=false;
         btn.textContent='Enviar mensaje';
