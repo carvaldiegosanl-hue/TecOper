@@ -2,7 +2,7 @@
 
 Sitio web de **TecOper** — ingeniería y automatización eléctrica e industrial y consultoría en transformación digital en Colombia.
 
-Página web estática (HTML + CSS, fuentes Inter e IBM Plex Mono vía Google Fonts). El formulario de contacto usa [Formspree](https://formspree.io/) y los botones de contacto abren WhatsApp.
+Página web estática (HTML + CSS + un poco de JS, sin build). Tipografías Jost, Figtree e IBM Plex Mono autoalojadas en `fonts/` (SIL OFL 1.1). El banner principal muestra el portafolio en tarjetas 3D hechas solo con CSS (`preserve-3d`) que giran siguiendo el puntero. El formulario de contacto usa [Formspree](https://formspree.io/) y los botones de contacto abren WhatsApp.
 
 ## Servicios
 
@@ -11,12 +11,12 @@ Página web estática (HTML + CSS, fuentes Inter e IBM Plex Mono vía Google Fon
 
 ## Publicación
 
-Publicado con **GitHub Pages** desde la rama `gh-pages`.
+Publicado con **GitHub Pages** con dominio propio (archivo `CNAME`).
 
-Sitio en vivo: <https://carvaldiegosanl-hue.github.io/TecOper/>
+Sitio en vivo: <https://tecoper.com.co/>
 
-> Nota: `index.html` incluye una etiqueta `<link rel="canonical">` y metadatos Open Graph que apuntan a la URL de GitHub Pages. Cuando tengas un dominio propio (por ejemplo `tecoper.com.co`), actualiza esas URLs.
+> Nota: el canonical, Open Graph, Twitter Card y JSON-LD de `index.html` usan URLs absolutas con `https://tecoper.com.co/`. Si cambia el dominio, actualízalas.
 
 ## Desarrollo
 
-No requiere instalación ni build. Abre `index.html` en el navegador.
+No requiere instalación ni build. Para verlo con las fuentes cargadas, sírvelo localmente (por ejemplo `python3 -m http.server`) y abre `http://localhost:8000`; abriendo el archivo directo el navegador bloquea las fuentes.
