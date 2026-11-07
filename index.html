@@ -113,7 +113,7 @@ body{font-family:var(--body);color:var(--text);background:var(--bg);line-height:
 .js .rv .diff-quote,.js .rv .video-frame,.js .rv .faq-list details,
 .js .rv .stats-inner>div,.js .rv>h2,.js .rv>p,.js .rv>.cta-btns,
 .js .rv>.trust-badges,.js .rv .contact-form-card,
-.js .rv .fact,.js .rv .coverage-map{
+.js .rv .fact,.js .rv .coverage-map,.js .rv .case-card,.js .rv .field-tile{
   opacity:0;transform:translateY(16px);
   transition:opacity .6s var(--ease),transform .6s var(--ease);
   transition-delay:var(--d,0ms);
@@ -123,7 +123,7 @@ body{font-family:var(--body);color:var(--text);background:var(--bg);line-height:
 .js .rv.is-visible .diff-quote,.js .rv.is-visible .video-frame,.js .rv.is-visible .faq-list details,
 .js .rv.is-visible .stats-inner>div,.js .rv.is-visible>h2,.js .rv.is-visible>p,.js .rv.is-visible>.cta-btns,
 .js .rv.is-visible>.trust-badges,.js .rv.is-visible .contact-form-card,
-.js .rv.is-visible .fact,.js .rv.is-visible .coverage-map{opacity:1;transform:none;}
+.js .rv.is-visible .fact,.js .rv.is-visible .coverage-map,.js .rv.is-visible .case-card,.js .rv.is-visible .field-tile{opacity:1;transform:none;}
 /* Las reglas de revelado son mas especificas que los :hover originales,
    asi que hay que devolverles la prioridad. */
 .js .rv.is-visible .service-card:hover{transform:translateY(-4px);}
@@ -278,6 +278,41 @@ section{padding:80px 24px;}
 .service-list li::before{content:'';position:absolute;left:0;top:12px;width:6px;height:6px;border-radius:50%;background:var(--accent);}
 .service-cta{display:block;margin-top:auto;text-align:center;padding:12px;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none;border:2px solid var(--accent);color:var(--accent);transition:background .2s var(--ease),color .2s var(--ease);}
 .service-cta:hover,.service-card.featured .service-cta{background:var(--accent);color:#fff;}
+
+/* EN CAMPO
+   Fotos reales del equipo. Mosaico: el caso principal ocupa dos filas
+   y tres fotos de contexto lo acompanan. */
+.field-section{background:var(--bg2);}
+.field-grid{display:grid;grid-template-columns:1.35fr 1fr 1fr;grid-template-rows:repeat(2,minmax(0,280px));gap:16px;}
+.case-card{grid-row:span 2;display:flex;flex-direction:column;border-radius:var(--radius-lg);overflow:hidden;background:var(--primary);box-shadow:0 18px 50px rgba(11,29,58,.18);}
+.case-media{position:relative;flex:1;min-height:0;}
+.case-media>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:20% 85%;}
+.case-inset{position:absolute;top:18px;right:18px;z-index:1;width:38%;aspect-ratio:3/2;border-radius:12px;overflow:hidden;border:3px solid #fff;box-shadow:0 14px 30px rgba(0,0,0,.4);}
+.case-inset img{width:100%;height:100%;object-fit:cover;display:block;}
+.case-body{padding:22px 26px 26px;color:#fff;}
+.case-kicker{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--accent-light);}
+.case-body h3{font-family:var(--display);font-size:22px;font-weight:700;line-height:1.2;margin:6px 0 8px;letter-spacing:-.01em;}
+.case-body p{font-size:14px;color:rgba(255,255,255,.75);max-width:44ch;}
+.case-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;}
+.case-tags span{font-size:12px;font-weight:600;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);padding:4px 10px;border-radius:99px;}
+.field-tile{position:relative;margin:0;border-radius:var(--radius);overflow:hidden;background:var(--bg3);}
+.field-tile img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s var(--ease);}
+.field-tile:hover img{transform:scale(1.04);}
+.field-tile figcaption{position:absolute;left:10px;bottom:10px;font-size:12.5px;font-weight:700;color:var(--primary);background:rgba(255,255,255,.94);padding:6px 11px;border-radius:8px;}
+.field-tile--tall{grid-row:span 2;}
+@media(max-width:900px){
+  .field-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto;}
+  .case-card{grid-column:1/-1;grid-row:auto;}
+  .case-media{flex:none;aspect-ratio:4/3;}
+  .field-tile{aspect-ratio:4/3;}
+  .field-tile--tall{grid-row:span 2;aspect-ratio:auto;}
+}
+@media(max-width:480px){
+  .field-grid{grid-template-columns:1fr;}
+  .field-tile--tall{grid-row:auto;aspect-ratio:3/4;}
+  .case-body{padding:20px;}
+  .case-body h3{font-size:20px;}
+}
 
 /* VIDEO */
 .video-section{background:var(--bg2);}
@@ -620,6 +655,39 @@ footer p{font-size:13px;color:rgba(255,255,255,.55);}
   </div>
 </section>
 
+<section class="field-section rv" id="en-campo">
+  <div class="section-inner">
+    <div class="section-tag">En campo</div>
+    <h2 class="section-title">Trabajo real, no fotos de catálogo</h2>
+    <div class="field-grid">
+      <article class="case-card">
+        <div class="case-media">
+          <img src="caso-empacadora.jpg" alt="Técnico de TecOper programando junto a la Empacadora No. 1 en una planta de alimentos" width="1400" height="1050" loading="lazy">
+          <div class="case-inset"><img src="caso-plc.jpg" alt="Programación de la lógica del PLC en el portátil, junto al tablero de la máquina" width="900" height="594" loading="lazy"></div>
+        </div>
+        <div class="case-body">
+          <div class="case-kicker">Ingeniería y Automatización</div>
+          <h3>Programación de PLC en empacadora de alimentos</h3>
+          <p>Ajuste de la lógica de control directamente en planta, con la línea de empaque como banco de pruebas.</p>
+          <div class="case-tags"><span>PLC</span><span>Industria de alimentos</span><span>Puesta en marcha</span></div>
+        </div>
+      </article>
+      <figure class="field-tile field-tile--tall">
+        <img src="campo-planta.jpg" alt="Grupo con casco y chaleco en visita técnica a una planta industrial con silos" width="800" height="1066" loading="lazy">
+        <figcaption>Visitas técnicas a planta</figcaption>
+      </figure>
+      <figure class="field-tile">
+        <img src="campo-feria.jpg" alt="Pasillo de una feria industrial en Medellín" width="1000" height="562" loading="lazy">
+        <figcaption>Ferias del sector</figcaption>
+      </figure>
+      <figure class="field-tile">
+        <img src="campo-encuentro.jpg" alt="Asistentes en un encuentro empresarial de la industria" width="1000" height="786" loading="lazy">
+        <figcaption>Encuentros empresariales</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
 <section class="video-section rv" id="video">
   <div class="section-inner">
     <div class="section-tag">Video</div>
@@ -827,7 +895,7 @@ footer p{font-size:13px;color:rgba(255,255,255,.55);}
   var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var CHILDREN='.section-tag,.section-title,.section-sub,.problem-card,.service-card,'+
                '.diff-item,.diff-quote,.video-frame,.faq-list details,.stats-inner>div,'+
-               '.contact-form-card,.fact,.coverage-map,'+
+               '.contact-form-card,.fact,.coverage-map,.case-card,.field-tile,'+
                ':scope>h2,:scope>p,:scope>.cta-btns,:scope>.trust-badges';
   var blocks=document.querySelectorAll('.rv');
   var steps=document.querySelector('.process-steps');
