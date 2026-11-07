@@ -988,9 +988,14 @@ nav::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:2px;ba
   <p class="cta-phone">O escríbenos al <a href="https://wa.me/573148319544?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20TecOper%20y%20necesito%20cotizar%20un%20servicio." target="_blank" rel="noopener">+57 314 831 9544</a></p>
   <p class="cta-note">Sin spam · Sin compromiso · Respuesta en menos de 24 h</p>
   <div class="contact-form-card">
-    <form action="https://formspree.io/f/mzblroje" method="POST" id="contactForm">
+    <!-- Envio directo a tecoper.admon@gmail.com con FormSubmit. El primer
+         envio dispara un correo de activacion que hay que aceptar una vez. -->
+    <form action="https://formsubmit.co/tecoper.admon@gmail.com" method="POST" id="contactForm">
       <input type="hidden" name="_subject" value="Nuevo contacto desde la web - TecOper">
-      <input type="text" name="_gotcha" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="https://tecoper.com.co/#contacto">
+      <input type="text" name="_honey" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
       <div class="form-row">
         <div class="field">
           <label for="f-nombre">Nombre completo</label>
@@ -1315,7 +1320,8 @@ nav::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:2px;ba
     var btn=form.querySelector('button[type="submit"]');
     btn.disabled=true;
     btn.textContent='Enviando...';
-    fetch(form.action,{method:'POST',headers:{'Accept':'application/json'},body:new FormData(form)})
+    fetch(form.action.replace('formsubmit.co/','formsubmit.co/ajax/'),{method:'POST',headers:{'Accept':'application/json'},body:new FormData(form)})
+      .then(function(res){return res.json().then(function(d){return {ok:res.ok&&String(d.success)==='true'};},function(){return {ok:res.ok};});})
       .then(function(res){
         if(res.ok){
           msg.textContent='Gracias, tu mensaje fue enviado. Te contactaremos pronto.';
