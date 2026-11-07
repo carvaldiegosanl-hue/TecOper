@@ -5,7 +5,16 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>TecOper — No esperamos a que falle. Lo anticipamos.</title>
 <meta name="description" content="TecOper se adelanta a las fallas con ingeniería, automatización y mantenimiento preventivo, además de consultoría en transformación digital en Colombia. Diagnóstico gratis, cotización en 24 horas.">
-<link rel="icon" type="image/png" href="logo.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<!-- App instalable: icono en la pantalla de inicio y apertura a pantalla completa -->
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0B1D3A">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="TecOper">
 
 <!-- URLs absolutas con el dominio propio (ver CNAME). Si cambia el dominio, actualiza canonical, Open Graph, Twitter y JSON-LD. -->
 <link rel="canonical" href="https://tecoper.com.co/">
@@ -531,6 +540,24 @@ nav::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:2px;ba
 .js .process-steps.is-visible .step:not(.on) .step-num{background:rgba(255,255,255,.12);color:rgba(255,255,255,.6);}
 .js .process-steps .step.on .step-num{box-shadow:0 0 0 6px rgba(226,35,26,.18),0 0 26px rgba(255,82,82,.55);}
 
+/* INSTALAR APP
+   Pildora discreta abajo a la izquierda (WhatsApp ocupa la derecha).
+   Solo aparece donde se puede instalar, nunca dentro de la app ya
+   instalada, y se recuerda si la persona la cerro. */
+.install{position:fixed;left:20px;bottom:24px;z-index:89;display:flex;align-items:center;gap:4px;background:#fff;color:var(--primary);border-radius:99px;box-shadow:0 12px 34px rgba(11,29,58,.28);border:1px solid var(--border);padding:5px;transform:translateY(140%);opacity:0;transition:transform .5s var(--ease),opacity .4s var(--ease);}
+.install.show{transform:none;opacity:1;}
+.install[hidden]{display:none;}
+.install-go{display:flex;align-items:center;gap:9px;border:0;background:none;font:inherit;font-size:13.5px;font-weight:700;color:inherit;cursor:pointer;padding:6px 10px 6px 6px;border-radius:99px;}
+.install-go img{width:30px;height:30px;border-radius:8px;}
+.install-go:hover{background:var(--bg2);}
+.install-x{width:30px;height:30px;border:0;border-radius:50%;background:var(--bg3);color:var(--text2);font-size:16px;line-height:1;cursor:pointer;}
+.install-x:hover{background:var(--border);}
+.install-tip{position:absolute;left:0;bottom:calc(100% + 10px);width:min(290px,calc(100vw - 40px));background:var(--primary);color:#fff;font-size:13px;line-height:1.5;padding:14px 16px;border-radius:14px;box-shadow:0 16px 40px rgba(11,29,58,.35);}
+.install-tip b{color:var(--accent-light);}
+.install-tip svg{width:15px;height:15px;vertical-align:-2px;}
+@media(display-mode:standalone){.install{display:none!important;}}
+@media print{.install{display:none!important;}}
+
 /* RESPONSIVE */
 @media(max-width:980px){
   .nav-inner{max-width:100%;}
@@ -1031,6 +1058,12 @@ nav::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:2px;ba
   <p class="footer-contact"><a href="https://wa.me/573148319544?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20TecOper%20y%20necesito%20cotizar%20un%20servicio." target="_blank" rel="noopener">+57 314 831 9544</a> &middot; <a href="mailto:tecoper.admon@gmail.com">tecoper.admon@gmail.com</a></p>
 </footer>
 
+<div class="install" id="installBar" hidden>
+  <button type="button" class="install-go" id="installGo"><img src="icon-192.png" alt="" width="30" height="30">Instalar app TecOper</button>
+  <button type="button" class="install-x" id="installX" aria-label="Cerrar">×</button>
+  <div class="install-tip" id="installTip" hidden>En Safari toca <b>Compartir</b> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M8 7l4-4 4 4"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg> y luego <b>Agregar a inicio</b>.</div>
+</div>
+
 <a href="https://wa.me/573148319544?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20TecOper%20y%20necesito%20cotizar%20un%20servicio." class="wa-float" aria-label="WhatsApp">
   <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
@@ -1242,6 +1275,42 @@ nav::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:2px;ba
       sec.addEventListener('pointerleave',function(){sec.classList.remove('is-hot');});
     });
   }
+
+  /* APP INSTALABLE
+     Registra el service worker (modo sin conexion) y muestra "Instalar
+     app" solo cuando el navegador lo permite: Android/Chrome/Edge via
+     beforeinstallprompt; en iPhone se explica el paso de Safari. */
+  if('serviceWorker' in navigator&&location.protocol!=='file:'){
+    window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});
+  }
+  var bar=document.getElementById('installBar'),go=document.getElementById('installGo'),
+      xb=document.getElementById('installX'),tip=document.getElementById('installTip'),deferred=null;
+  var standalone=(window.matchMedia&&window.matchMedia('(display-mode: standalone)').matches)||navigator.standalone===true;
+  var dismissed=false;try{dismissed=localStorage.getItem('tecoper-install-x')==='1';}catch(e){}
+  var showBar=function(){
+    if(!bar||standalone||dismissed)return;
+    bar.hidden=false;
+    setTimeout(function(){bar.classList.add('show');},60);
+  };
+  window.addEventListener('beforeinstallprompt',function(e){
+    e.preventDefault();deferred=e;
+    setTimeout(showBar,6000);   /* no interrumpir de entrada */
+  });
+  var ua=navigator.userAgent||'';
+  var isIOS=/iPhone|iPad|iPod/.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+  var isSafari=/Safari/.test(ua)&&!/CriOS|FxiOS|EdgiOS|GSA/.test(ua);
+  if(isIOS&&isSafari)setTimeout(showBar,8000);
+  if(go)go.addEventListener('click',function(){
+    if(deferred){
+      deferred.prompt();
+      deferred.userChoice.finally(function(){deferred=null;bar.classList.remove('show');});
+    }else if(tip){tip.hidden=!tip.hidden;}
+  });
+  if(xb)xb.addEventListener('click',function(){
+    bar.classList.remove('show');setTimeout(function(){bar.hidden=true;},500);
+    try{localStorage.setItem('tecoper-install-x','1');}catch(e){}
+  });
+  window.addEventListener('appinstalled',function(){if(bar)bar.hidden=true;});
 
   var yearEl=document.getElementById('year');
   if(yearEl)yearEl.textContent=new Date().getFullYear();
