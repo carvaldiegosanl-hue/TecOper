@@ -64,11 +64,9 @@
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    { "@type": "Question", "name": "¿Qué quieren decir con que \"se anticipan\"?", "acceptedAnswer": { "@type": "Answer", "text": "Que en vez de esperar a que algo se dañe, hacemos mantenimiento y revisiones programadas que detectan las señales tempranas de falla. Así actúas a tiempo, cuando arreglarlo todavía es barato." } },
-    { "@type": "Question", "name": "¿Esto solo sirve para empresas grandes?", "acceptedAnswer": { "@type": "Answer", "text": "No. Trabajamos con pymes, conjuntos residenciales y plantas industriales. La tecnología se ajusta a tu tamaño y a tu presupuesto: empiezas por donde más te duele." } },
-    { "@type": "Question", "name": "¿Cuánto cuesta el diagnóstico?", "acceptedAnswer": { "@type": "Answer", "text": "Cero. Hacemos el diagnóstico inicial y te enviamos la cotización, ambos sin costo y sin compromiso. Solo pagas si decides avanzar." } },
-    { "@type": "Question", "name": "¿En cuánto tiempo me responden?", "acceptedAnswer": { "@type": "Answer", "text": "Te enviamos una cotización formal en menos de 24 horas desde que nos contactas." } },
-    { "@type": "Question", "name": "¿Todo queda documentado?", "acceptedAnswer": { "@type": "Answer", "text": "Sí. Cada servicio tiene orden con técnico, fecha y evidencia, y terminamos con entrega firmada y factura. 100% trazabilidad digital, de principio a fin." } }
+    { "@type": "Question", "name": "¿Esto solo sirve para empresas grandes?", "acceptedAnswer": { "@type": "Answer", "text": "No. Trabajamos con pymes, conjuntos residenciales y plantas industriales, y empezamos por donde más te duele." } },
+    { "@type": "Question", "name": "¿Cuánto cuesta el diagnóstico?", "acceptedAnswer": { "@type": "Answer", "text": "Nada. El diagnóstico y la cotización son gratis, y la cotización te llega en menos de 24 horas." } },
+    { "@type": "Question", "name": "¿Todo queda documentado?", "acceptedAnswer": { "@type": "Answer", "text": "Sí. Cada servicio tiene orden con técnico, fecha y evidencia, y cierra con entrega firmada y factura." } }
   ]
 }
 </script>
@@ -98,7 +96,7 @@ html{scroll-behavior:smooth;}
 body{font-family:var(--body);color:var(--text);background:var(--bg);line-height:1.6;}
 /* Jost solo en la tipografia grande: display caracteristico usado con
    moderacion. Todo lo pequeno va en Figtree, que se lee mejor. */
-.logo,.hero h1,.section-title,.cta-section h2,.diff-quote{font-family:var(--display);}
+.logo,.hero h1,.section-title,.cta-section h2{font-family:var(--display);}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px;}
 .hero h1,.section-title,.cta-section h2{text-wrap:balance;}
 
@@ -181,9 +179,6 @@ nav.scrolled .logo-badge{transform:scale(.92);}
 .hero h1 em{font-style:normal;color:var(--accent-light);}
 .hero p{font-size:18px;color:rgba(255,255,255,.7);max-width:520px;margin:0 0 34px;line-height:1.7;}
 .hero-btns{display:flex;gap:14px;flex-wrap:wrap;}
-.hero-proof{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:30px;font-size:13px;font-weight:600;color:rgba(255,255,255,.72);}
-.hero-proof span{display:inline-flex;align-items:center;gap:8px;}
-.hero-proof span::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent-light);box-shadow:0 0 0 4px rgba(255,82,82,.16);}
 
 /* PORTAFOLIO 3D DEL HERO
    Dos tarjetas en perspectiva real (preserve-3d). La escena entera gira
@@ -252,6 +247,7 @@ section{padding:80px 24px;}
    el rojo de marca solo llega a 3,7:1. Este llega a 5,4:1. */
 .section-tag{display:inline-block;background:var(--accent-glow);color:var(--accent-ink);padding:5px 14px;border-radius:99px;font-family:var(--mono);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px;}
 .section-title{font-size:clamp(28px,3.8vw,42px);font-weight:700;color:var(--primary);line-height:1.16;margin-bottom:14px;letter-spacing:-.015em;}
+.section-title+div{margin-top:34px;}
 .section-sub{font-size:16px;color:var(--text2);max-width:600px;line-height:1.7;margin-bottom:48px;}
 
 /* PROBLEM */
@@ -311,11 +307,6 @@ section{padding:80px 24px;}
 .js .process-steps.is-visible .step-num{opacity:1;transform:none;}
 .step h3{font-size:16px;font-weight:700;letter-spacing:-.2px;margin:0;}
 
-/* HERO BADGES / TRUST PILLS */
-.trust-badges{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:30px;}
-.trust-badges span{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;color:rgba(255,255,255,.82);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);padding:8px 15px;border-radius:99px;}
-.trust-badges span b{color:var(--accent-light);font-weight:700;}
-.cta-section .trust-badges{margin-top:34px;}
 
 /* DIFERENCIA */
 .difference{background:var(--primary);color:#fff;position:relative;overflow:hidden;}
@@ -324,13 +315,11 @@ section{padding:80px 24px;}
 .difference .section-tag{background:rgba(255,82,82,.15);color:var(--accent-light);}
 .difference .section-title{color:#fff;}
 .difference .section-sub{color:rgba(255,255,255,.55);}
-.diff-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-bottom:38px;}
+.diff-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;}
 .diff-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:var(--radius);padding:24px;}
 .diff-item h4{font-size:16px;font-weight:700;margin-bottom:7px;color:#fff;}
 .diff-item h4 span{color:var(--accent-light);}
 .diff-item p{font-size:14px;color:rgba(255,255,255,.6);line-height:1.6;}
-.diff-quote{font-size:clamp(20px,2.8vw,29px);font-weight:600;line-height:1.36;color:#fff;border-left:3px solid var(--accent);padding-left:22px;max-width:760px;text-wrap:balance;}
-.diff-quote span{color:var(--accent-light);}
 
 /* COBERTURA
    Mapa embebido de Google Maps con carga diferida (loading="lazy"). */
@@ -419,7 +408,7 @@ footer p{font-size:13px;color:rgba(255,255,255,.55);}
   .hero{padding:120px 24px 110px;}
   .hero-grid{grid-template-columns:1fr;gap:28px;text-align:center;}
   .hero p{margin-left:auto;margin-right:auto;}
-  .hero-btns,.hero-proof{justify-content:center;}
+  .hero-btns{justify-content:center;}
   .hero-stage{height:460px;max-width:540px;width:100%;margin:0 auto;}
 }
 @media(max-width:768px){
@@ -498,15 +487,10 @@ footer p{font-size:13px;color:rgba(255,255,255,.55);}
     <div class="hero-content hero-seq">
       <div class="hero-badge" style="--d:80ms">Prevención, no reacción</div>
       <h1 style="--d:180ms">No esperamos a que falle. <em>Lo anticipamos.</em></h1>
-      <p style="--d:300ms">Ingeniería, automatización y transformación digital que se adelantan a la falla, para resolver el problema antes de que te cueste dinero, tiempo o tranquilidad.</p>
+      <p style="--d:300ms">Ingeniería, automatización y transformación digital para resolver el problema antes de que te cueste dinero.</p>
       <div class="hero-btns" style="--d:420ms">
         <a href="#contacto" class="btn-primary">Solicita tu diagnóstico gratis</a>
         <a href="#servicios" class="btn-secondary">Ver portafolio</a>
-      </div>
-      <div class="hero-proof" style="--d:540ms">
-        <span>Cotización en 24h</span>
-        <span>Diagnóstico sin costo</span>
-        <span>Toda Colombia</span>
       </div>
     </div>
 
@@ -558,22 +542,21 @@ footer p{font-size:13px;color:rgba(255,255,255,.55);}
   <div class="section-inner">
     <div class="section-tag">El problema</div>
     <h2 class="section-title">Lo que no se ve venir, es lo que más cuesta</h2>
-    <p class="section-sub">La mayoría reacciona cuando ya es tarde: cuando el equipo se paró o cuando el proceso ya se atrasó. Reaccionar sale caro.</p>
     <div class="problem-grid">
       <div class="problem-card">
         <div class="problem-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2.2 20.5h19.6L12 3Z"/><path d="M12 10v4.2"/><path d="M12 17.6v.4"/></svg></div>
         <h3>Paradas que no viste venir</h3>
-        <p>Un motor que se recalienta, un tablero que da señales… y nadie las vio. Cuando el equipo por fin falla, ya perdiste horas de producción y una reparación de urgencia que cuesta el triple.</p>
+        <p>Un motor da señales y nadie las ve. Cuando falla, la reparación de urgencia cuesta el triple.</p>
       </div>
       <div class="problem-card">
         <div class="problem-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg></div>
         <h3>Procesos manuales que frenan tu empresa</h3>
-        <p>Todo se maneja en cuadernos, chats y hojas sueltas: nadie sabe dónde va cada cosa ni cuánto cuesta en realidad. Sin datos ordenados, cada decisión es una apuesta.</p>
+        <p>Cuadernos, chats y hojas sueltas: nadie sabe dónde va cada cosa ni cuánto cuesta.</p>
       </div>
       <div class="problem-card">
         <div class="problem-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V4M4 20h16M8 16l3.5-4 3 2.5L20 8"/></svg></div>
         <h3>Decisiones a ciegas en tu operación</h3>
-        <p>Inviertes en tecnología, contratas gente, compras equipos… pero sin datos claros no sabes qué funciona ni dónde se te va la plata. Trabajas con el instinto, no con la información.</p>
+        <p>Sin datos claros no sabes qué funciona ni dónde se te va la plata.</p>
       </div>
     </div>
   </div>
@@ -582,37 +565,34 @@ footer p{font-size:13px;color:rgba(255,255,255,.55);}
 <section class="difference rv" id="diferencia">
   <div class="section-inner">
     <div class="section-tag">La diferencia TecOper</div>
-    <h2 class="section-title">La diferencia no es que reparamos. Es que anticipamos.</h2>
-    <p class="section-sub">Cualquiera arregla lo que ya se dañó. Nosotros nos adelantamos para resolverlo antes de que se dañe. Ese es el cambio de juego.</p>
+    <h2 class="section-title">Intervienes cuando es barato, no cuando es urgente.</h2>
     <div class="diff-list">
       <div class="diff-item">
         <h4><span>Menos</span> paradas</h4>
-        <p>Intervienes cuando es barato, no cuando es urgente.</p>
+        <p>Detectamos las señales antes de que el equipo se detenga.</p>
       </div>
       <div class="diff-item">
         <h4><span>Más</span> tranquilidad</h4>
-        <p>Duermes tranquilo sabiendo que tu operación está bajo control.</p>
+        <p>Tu operación bajo control, sin sorpresas.</p>
       </div>
       <div class="diff-item">
         <h4><span>Mejores</span> decisiones</h4>
-        <p>Ves tu operación en números claros, no en corazonadas.</p>
+        <p>Números claros, no corazonadas.</p>
       </div>
     </div>
-    <p class="diff-quote">No esperamos a que falle. <span>Nos adelantamos al problema antes de que ocurra.</span></p>
   </div>
 </section>
 
 <section class="rv" id="servicios">
   <div class="section-inner">
     <div class="section-tag">Servicios</div>
-    <h2 class="section-title">Dos frentes, una misma promesa: adelantarnos</h2>
-    <p class="section-sub">Todo lo que hacemos tiene la misma mentalidad: adelantarnos para que tú no vivas apagando incendios.</p>
+    <h2 class="section-title">Dos líneas de servicio</h2>
     <div class="services-grid">
       <div class="service-card featured" id="serv-ingenieria">
         <div class="service-badge">Nuestra especialidad</div>
         <div class="service-img"><img src="serv-ingenieria.jpg" alt="Ingeniero trabajando en un tablero eléctrico industrial con PLC" loading="lazy"></div>
         <h3>Ingeniería y Automatización</h3>
-        <div class="service-desc">Tus equipos rinden más, fallan menos y duran más. Ingeniería, automatización e integración IoT con mantenimiento que se adelanta a la avería.</div>
+        <div class="service-desc">Tus equipos rinden más, fallan menos y duran más.</div>
         <ul class="service-list">
           <li>Servicio eléctrico locativo: revisión y corrección de instalaciones</li>
           <li>Diseño de producto nuevo e integración IoT industrial</li>
@@ -627,7 +607,7 @@ footer p{font-size:13px;color:rgba(255,255,255,.55);}
       <div class="service-card" id="serv-consultoria">
         <div class="service-img"><img src="serv-consultoria.jpg" alt="Profesional usando una tablet en un edificio moderno" loading="lazy"></div>
         <h3>Consultoría en Transformación Digital</h3>
-        <div class="service-desc">Digitaliza tu pyme sin gastar de más y sin adivinar. Auditamos tu operación, vemos dónde se te va el tiempo y la plata, y te damos un plan priorizado por impacto y costo.</div>
+        <div class="service-desc">Digitaliza tu pyme sin gastar de más y sin adivinar.</div>
         <ul class="service-list">
           <li>Evaluación de los procesos de tu empresa</li>
           <li>Plan de digitalización priorizado por impacto y costo</li>
@@ -644,7 +624,6 @@ footer p{font-size:13px;color:rgba(255,255,255,.55);}
   <div class="section-inner">
     <div class="section-tag">Video</div>
     <h2 class="section-title">Conócenos en un minuto</h2>
-    <p class="section-sub">Así trabajamos: ingeniería y consultoría con la misma mentalidad de adelantarnos.</p>
     <div class="video-frame">
       <iframe src="https://www.youtube-nocookie.com/embed/_V3UZyK5mm4" title="Video de presentación de TecOper" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
@@ -655,7 +634,6 @@ footer p{font-size:13px;color:rgba(255,255,255,.55);}
   <div class="section-inner">
     <div class="section-tag">Proceso</div>
     <h2 class="section-title">Claro, rápido y sin letra menuda</h2>
-    <p class="section-sub">Del primer mensaje a la solución funcionando, todo queda documentado y tú siempre sabes en qué vas.</p>
     <div class="process-steps">
       <div class="step">
         <div class="step-num">01</div>
@@ -683,7 +661,7 @@ footer p{font-size:13px;color:rgba(255,255,255,.55);}
       <div class="coverage-copy">
         <div class="section-tag">Cobertura</div>
         <h2 class="section-title">Estamos en Medellín. Trabajamos en todo el país.</h2>
-        <p class="section-sub">Operamos desde Medellín y atendemos proyectos en cualquier departamento. Escríbenos dónde estás y te confirmamos disponibilidad y tiempos para tu zona antes de cotizar.</p>
+        <p class="section-sub">Cuéntanos dónde estás y te confirmamos tiempos para tu zona.</p>
         <div class="coverage-facts">
           <div class="fact">
             <div class="fact-val">Medellín</div>
@@ -708,35 +686,26 @@ footer p{font-size:13px;color:rgba(255,255,255,.55);}
   <div class="section-inner">
     <div class="section-tag">Preguntas frecuentes</div>
     <h2 class="section-title">Lo que más nos preguntan</h2>
-    <p class="section-sub">Resolvemos tus dudas antes de empezar.</p>
     <div class="faq-list">
       <details>
-        <summary>¿Qué quieren decir con que "se anticipan"?<span class="faq-icon" aria-hidden="true"></span></summary>
-        <p>Que en vez de esperar a que algo se dañe, hacemos mantenimiento y revisiones programadas que detectan las señales tempranas de falla. Así actúas a tiempo, cuando arreglarlo todavía es barato.</p>
-      </details>
-      <details>
         <summary>¿Esto solo sirve para empresas grandes?<span class="faq-icon" aria-hidden="true"></span></summary>
-        <p>No. Trabajamos con pymes, conjuntos residenciales y plantas industriales. La tecnología se ajusta a tu tamaño y a tu presupuesto: empiezas por donde más te duele.</p>
+        <p>No. Trabajamos con pymes, conjuntos residenciales y plantas industriales, y empezamos por donde más te duele.</p>
       </details>
       <details>
         <summary>¿Cuánto cuesta el diagnóstico?<span class="faq-icon" aria-hidden="true"></span></summary>
-        <p>Cero. Hacemos el diagnóstico inicial y te enviamos la cotización, ambos sin costo y sin compromiso. Solo pagas si decides avanzar.</p>
-      </details>
-      <details>
-        <summary>¿En cuánto tiempo me responden?<span class="faq-icon" aria-hidden="true"></span></summary>
-        <p>Te enviamos una cotización formal en menos de 24 horas desde que nos contactas.</p>
+        <p>Nada. El diagnóstico y la cotización son gratis, y la cotización te llega en menos de 24 horas.</p>
       </details>
       <details>
         <summary>¿Todo queda documentado?<span class="faq-icon" aria-hidden="true"></span></summary>
-        <p>Sí. Cada servicio tiene orden con técnico, fecha y evidencia, y terminamos con entrega firmada y factura. 100% trazabilidad digital, de principio a fin.</p>
+        <p>Sí. Cada servicio tiene orden con técnico, fecha y evidencia, y cierra con entrega firmada y factura.</p>
       </details>
     </div>
   </div>
 </section>
 
 <section class="cta-section rv" id="contacto">
-  <h2>Deja de reaccionar. Empieza a anticiparte.</h2>
-  <p>Un diagnóstico gratis puede mostrarte cuánto estás perdiendo por esperar a que las cosas fallen. Sin costo, sin compromiso, en menos de 24 horas.</p>
+  <h2>¿Listo para dejar de apagar incendios?</h2>
+  <p>Escríbenos y recibe tu cotización en menos de 24 horas.</p>
   <div class="cta-btns">
     <a href="https://wa.me/573148319544?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20TecOper%20y%20necesito%20cotizar%20un%20servicio%20para%20mi%20empresa%20o%20conjunto." class="btn-whatsapp">
       <svg viewBox="0 0 24 24" width="22" height="22"><path fill="#fff" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -744,12 +713,6 @@ footer p{font-size:13px;color:rgba(255,255,255,.55);}
     </a>
   </div>
   <p class="cta-phone">O escríbenos al <a href="https://wa.me/573148319544?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20TecOper%20y%20necesito%20cotizar%20un%20servicio." target="_blank" rel="noopener">+57 314 831 9544</a></p>
-  <div class="trust-badges">
-    <span>⚡ Cotización en <b>24h</b></span>
-    <span>🔍 Diagnóstico <b>sin costo</b></span>
-    <span>📊 <b>100%</b> trazabilidad digital</span>
-    <span>📍 Toda <b>Colombia</b></span>
-  </div>
   <div class="contact-form-card">
     <form action="https://formspree.io/f/mzblroje" method="POST" id="contactForm">
       <input type="hidden" name="_subject" value="Nuevo contacto desde la web - TecOper">
